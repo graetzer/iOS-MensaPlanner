@@ -120,25 +120,29 @@
   return self;
 }
 
+- (void)moveToTabIndex:(NSInteger)index animated:(BOOL)animated {
+    CGFloat x = [[self tabViews][0] frame].origin.x - 5;
+    
+    for (int i = 0; i < index; i++) {
+        x += [[self tabViews][i] frame].size.width + 10;
+    }
+    
+    CGFloat w = [[self tabViews][index] frame].size.width + 10;
+    [UIView animateWithDuration: animated ? 0.3f : 0
+                     animations:^{
+                         CGFloat p = x - (self.frame.size.width - w) / 2;
+                         CGFloat min = 0;
+                         CGFloat max = MAX(0, self.contentSize.width - self.frame.size.width);
+                         
+                         [self setContentOffset:CGPointMake(MAP(p, min, max), 0)];
+                         [[self tabIndicatorDisplacement] setConstant:x];
+                         [[self tabIndicatorWidth] setConstant:w];
+                         [self layoutIfNeeded];
+                     }];
+}
+
 - (void)animateToTabAtIndex:(NSInteger)index {
-  CGFloat x = [[self tabViews][0] frame].origin.x - 5;
-  
-  for (int i = 0; i < index; i++) {
-    x += [[self tabViews][i] frame].size.width + 10;
-  }
-  
-  CGFloat w = [[self tabViews][index] frame].size.width + 10;
-  [UIView animateWithDuration:0.4f
-                   animations:^{
-                     CGFloat p = x - (self.frame.size.width - w) / 2;
-                     CGFloat min = 0;
-                     CGFloat max = MAX(0, self.contentSize.width - self.frame.size.width);
-                     
-                     [self setContentOffset:CGPointMake(MAP(p, min, max), 0)];
-                     [[self tabIndicatorDisplacement] setConstant:x];
-                     [[self tabIndicatorWidth] setConstant:w];
-                     [self layoutIfNeeded];
-                   }];
+    [self moveToTabIndex:index animated:YES];
 }
 
 - (void)tabTapHandler:(UITapGestureRecognizer *)gestureRecognizer {

@@ -11,9 +11,10 @@ import UIKit
 struct Globals {
     static let rwthBlue = UIColor(rgba: "#00549F")
     static let keySelectedMensa = "org.graetzer.selected_mensa"
-    static let mensas = [Mensa(name:"Mensa Academica",
-        address:"Aachen Pontwall 3",
-        url:"http://www.studentenwerk-aachen.de/speiseplaene/academica-w.html"),
+    static let mensas = [
+        Mensa(name:"Mensa Academica",
+            address:"Aachen Pontwall 3",
+            url:"http://www.studentenwerk-aachen.de/speiseplaene/academica-w.html"),
         Mensa(name:"Mensa Academica",
             address:"Aachen Pontwall 3",
             url:"http://www.studentenwerk-aachen.de/speiseplaene/academica-w.html"),
@@ -30,8 +31,13 @@ struct Globals {
         Mensa(name:"Mensa Jülich",  address:"Aachen Heinrich-Mußmann-Str. 1", url:"http://www.studentenwerk-aachen.de/speiseplaene/juelich-w.html")]
 }
 
-struct Mensa {
+class Mensa {
     var name, address, url : String
+    init(name :String, address :String, url :String) {
+        self.name = name
+        self.address = address
+        self.url = url
+    }
 }
 
 extension UIColor {

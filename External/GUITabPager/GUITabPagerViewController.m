@@ -25,6 +25,16 @@
 
 @implementation GUITabPagerViewController
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+    [coder encodeInteger:self.selectedIndex forKey:@"selectedIndex"];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+    self.selectedIndex = [coder decodeIntegerForKey:@"selectedIndex"];
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   [self setEdgesForExtendedLayout:UIRectEdgeNone];
@@ -50,6 +60,14 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
   [self reloadTabs];
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinator> coordinator) {
+        [self reloadTabs];
+    } completion:^(id<UIViewControllerTransitionCoordinator> coordinator) {
+        [[self header] moveToTabIndex:self.selectedIndex animated:NO];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -137,11 +155,15 @@
   
   [[[self pageViewController] view] setFrame:frame];
   
-  [self.pageViewController setViewControllers:@[[self viewControllers][0]]
-                                    direction:UIPageViewControllerNavigationDirectionReverse
-                                     animated:NO
-                                   completion:nil];
-  [self setSelectedIndex:0];
+    [[self pageViewController]  setViewControllers:@[[self viewControllers][self.selectedIndex]]
+                                         direction:UIPageViewControllerNavigationDirectionReverse
+                                          animated:YES
+                                        completion:^(BOOL finished) {
+                                            [[self header] animateToTabAtIndex:self.selectedIndex];
+                                            if ([[self delegate] respondsToSelector:@selector(tabPager:didTransitionToTabAtIndex:)]) {
+                                                [[self delegate] tabPager:self didTransitionToTabAtIndex:[self selectedIndex]];
+                                            }
+                                        }];
 }
 
 - (void)reloadTabs {

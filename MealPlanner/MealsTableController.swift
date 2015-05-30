@@ -6,36 +6,53 @@
 //  Copyright (c) 2015 Simon Grätzer. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// Displays the meals for a day
 class MealsTableController: UITableViewController {
     
-    var mensa : Mensa?
+    var mensa : Mensa? = nil {
+        didSet {
+            self.title = mensa?.name
+        }
+    }
     var day : Mealplan.Day? = nil {
         didSet {
             if self.isViewLoaded() {
                 self.tableView.reloadData()
+                if activityIndicator != nil {
+                    activityIndicator!.removeFromSuperview()
+                    activityIndicator = nil
+                }
             }
         }
     }
+    private var activityIndicator : UIActivityIndicatorView?
+    
     /// Currency formatter
     private let numberFormatter = NSNumberFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = mensa?.name
         numberFormatter.numberStyle = .CurrencyStyle
         numberFormatter.locale = NSLocale(localeIdentifier: "de_DE")
         
+        self.tableView.allowsSelection = false;
         if day == nil {
             // TODO add loading indicator
             // Maybe not needed
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if day == nil {
+            let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            indicator.frame = self.view.bounds
+            self.view.addSubview(indicator)
+            indicator.startAnimating()
+            activityIndicator = indicator
+        }
     }
     
     // MARK: UITableViewDelegate
@@ -58,7 +75,7 @@ class MealsTableController: UITableViewController {
         
         return cell
     }
-    
+
 }
 
 class MensaTableViewCell: UITableViewCell {

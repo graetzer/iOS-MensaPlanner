@@ -10,8 +10,6 @@
 #define MealPlanner_Bridging_Header_h
 
 #import "GUITabPagerViewController.h"
-#import <libxml/HTMLtree.h>
-#import <libxml/xpath.h>
 #import "GDataXMLNode.h"
 
 #endif

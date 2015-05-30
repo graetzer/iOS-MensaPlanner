@@ -8,47 +8,106 @@
 
 /* Begin PBXBuildFile section */
 		F462BF801B077ED400A60A8F /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F462BF7F1B077ED400A60A8F /* libxml2.2.dylib */; };
-		F48510171B133BE50058C663 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F48510161B133BE50058C663 /* GDataXMLNode.m */; };
+		F496F65A1B178EC400C3ADAC /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F496F6591B178EC400C3ADAC /* GDataXMLNode.m */; };
+		F496F6611B178ECE00C3ADAC /* GUITabPagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F496F65D1B178ECE00C3ADAC /* GUITabPagerViewController.m */; };
+		F496F6621B178ECE00C3ADAC /* GUITabScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F496F65F1B178ECE00C3ADAC /* GUITabScrollView.m */; };
+		F496F6631B178ECE00C3ADAC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F496F6601B178ECE00C3ADAC /* LICENSE */; };
+		F496F66D1B179C3900C3ADAC /* MensaTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496F66C1B179C3900C3ADAC /* MensaTableController.swift */; };
+		F496F66F1B179C3900C3ADAC /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496F66E1B179C3900C3ADAC /* GlanceController.swift */; };
+		F496F6711B179C3900C3ADAC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F496F6701B179C3900C3ADAC /* Images.xcassets */; };
+		F496F6751B179C3900C3ADAC /* MealPlanner WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = F496F6741B179C3900C3ADAC /* MealPlanner WatchKit App.app */; };
+		F496F67D1B179C3900C3ADAC /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F496F67B1B179C3900C3ADAC /* Interface.storyboard */; };
+		F496F67F1B179C3900C3ADAC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F496F67E1B179C3900C3ADAC /* Images.xcassets */; };
+		F496F6821B179C3900C3ADAC /* MealPlanner WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F496F6681B179C3800C3ADAC /* MealPlanner WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F496F68B1B179D1C00C3ADAC /* MensaInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496F68A1B179D1C00C3ADAC /* MensaInterfaceController.swift */; };
+		F496F68C1B17A1BC00C3ADAC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94DF01B06AE010035EE6A /* Globals.swift */; };
+		F4A557C91B17D67A00956AF0 /* Mealplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94DF41B06BD350035EE6A /* Mealplan.swift */; };
+		F4A557CA1B17DC1500956AF0 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F496F6591B178EC400C3ADAC /* GDataXMLNode.m */; };
+		F4A557CC1B17E55200956AF0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A557CB1B17E55200956AF0 /* libxml2.dylib */; };
+		F4B010B71B176CC100641B5D /* MensasPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94D941B0692F60035EE6A /* MensasPagerController.swift */; };
 		F4D94D931B0692F60035EE6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94D921B0692F60035EE6A /* AppDelegate.swift */; };
-		F4D94D951B0692F60035EE6A /* MealPlanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94D941B0692F60035EE6A /* MealPlanController.swift */; };
 		F4D94D981B0692F60035EE6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4D94D961B0692F60035EE6A /* Main.storyboard */; };
 		F4D94D9A1B0692F60035EE6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4D94D991B0692F60035EE6A /* Images.xcassets */; };
 		F4D94D9D1B0692F70035EE6A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D94D9B1B0692F70035EE6A /* LaunchScreen.xib */; };
-		F4D94DED1B06ACBF0035EE6A /* GUITabPagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D94DE91B06ACBF0035EE6A /* GUITabPagerViewController.m */; };
-		F4D94DEE1B06ACBF0035EE6A /* GUITabScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D94DEB1B06ACBF0035EE6A /* GUITabScrollView.m */; };
 		F4D94DF11B06AE010035EE6A /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94DF01B06AE010035EE6A /* Globals.swift */; };
 		F4D94DF31B06B3E40035EE6A /* MealsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94DF21B06B3E40035EE6A /* MealsTableController.swift */; };
 		F4D94DF51B06BD350035EE6A /* Mealplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94DF41B06BD350035EE6A /* Mealplan.swift */; };
-		F4D94E011B06C1980035EE6A /* HTMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94DFC1B06C1980035EE6A /* HTMLNode.swift */; };
-		F4D94E021B06C1980035EE6A /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D94DFD1B06C1980035EE6A /* HTMLParser.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F496F6761B179C3900C3ADAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4D94D851B0692F50035EE6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F496F6731B179C3900C3ADAC;
+			remoteInfo = "MealPlanner WatchKit App";
+		};
+		F496F6801B179C3900C3ADAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4D94D851B0692F50035EE6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F496F6671B179C3800C3ADAC;
+			remoteInfo = "MealPlanner WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F496F6891B179C3900C3ADAC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F496F6821B179C3900C3ADAC /* MealPlanner WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F462BF7F1B077ED400A60A8F /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		F48510151B133BE50058C663 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
-		F48510161B133BE50058C663 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		F496F6581B178EC400C3ADAC /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		F496F6591B178EC400C3ADAC /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		F496F65C1B178ECE00C3ADAC /* GUITabPagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUITabPagerViewController.h; sourceTree = "<group>"; };
+		F496F65D1B178ECE00C3ADAC /* GUITabPagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GUITabPagerViewController.m; sourceTree = "<group>"; };
+		F496F65E1B178ECE00C3ADAC /* GUITabScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUITabScrollView.h; sourceTree = "<group>"; };
+		F496F65F1B178ECE00C3ADAC /* GUITabScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GUITabScrollView.m; sourceTree = "<group>"; };
+		F496F6601B178ECE00C3ADAC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		F496F6681B179C3800C3ADAC /* MealPlanner WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MealPlanner WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F496F66B1B179C3900C3ADAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F496F66C1B179C3900C3ADAC /* MensaTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MensaTableController.swift; sourceTree = "<group>"; };
+		F496F66E1B179C3900C3ADAC /* GlanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
+		F496F6701B179C3900C3ADAC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F496F6741B179C3900C3ADAC /* MealPlanner WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MealPlanner WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F496F67A1B179C3900C3ADAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F496F67C1B179C3900C3ADAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		F496F67E1B179C3900C3ADAC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F496F68A1B179D1C00C3ADAC /* MensaInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MensaInterfaceController.swift; sourceTree = "<group>"; };
+		F4A557CB1B17E55200956AF0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		F4B010751B16A3E500641B5D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F4D94D8D1B0692F50035EE6A /* MealPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MealPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4D94D911B0692F60035EE6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4D94D921B0692F60035EE6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F4D94D941B0692F60035EE6A /* MealPlanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanController.swift; sourceTree = "<group>"; };
+		F4D94D941B0692F60035EE6A /* MensasPagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MensasPagerController.swift; sourceTree = "<group>"; };
 		F4D94D971B0692F60035EE6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F4D94D991B0692F60035EE6A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F4D94D9C1B0692F70035EE6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		F4D94DE31B069FA50035EE6A /* MealPlanner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MealPlanner-Bridging-Header.h"; path = "MealPlanner/MealPlanner-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
-		F4D94DE81B06ACBF0035EE6A /* GUITabPagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUITabPagerViewController.h; sourceTree = "<group>"; };
-		F4D94DE91B06ACBF0035EE6A /* GUITabPagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GUITabPagerViewController.m; sourceTree = "<group>"; };
-		F4D94DEA1B06ACBF0035EE6A /* GUITabScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GUITabScrollView.h; sourceTree = "<group>"; };
-		F4D94DEB1B06ACBF0035EE6A /* GUITabScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GUITabScrollView.m; sourceTree = "<group>"; };
-		F4D94DEC1B06ACBF0035EE6A /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		F4D94DF01B06AE010035EE6A /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		F4D94DF21B06B3E40035EE6A /* MealsTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsTableController.swift; sourceTree = "<group>"; };
 		F4D94DF41B06BD350035EE6A /* Mealplan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mealplan.swift; sourceTree = "<group>"; };
-		F4D94DFC1B06C1980035EE6A /* HTMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLNode.swift; sourceTree = "<group>"; };
-		F4D94DFD1B06C1980035EE6A /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
-		F4D94DFE1B06C1980035EE6A /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F496F6651B179C3800C3ADAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4A557CC1B17E55200956AF0 /* libxml2.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4D94D8A1B0692F50035EE6A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -60,22 +119,77 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F48510141B133BE50058C663 /* GDataXML */ = {
+		F496F6571B178EC400C3ADAC /* GDataXML */ = {
 			isa = PBXGroup;
 			children = (
-				F48510151B133BE50058C663 /* GDataXMLNode.h */,
-				F48510161B133BE50058C663 /* GDataXMLNode.m */,
+				F496F6581B178EC400C3ADAC /* GDataXMLNode.h */,
+				F496F6591B178EC400C3ADAC /* GDataXMLNode.m */,
 			);
 			name = GDataXML;
 			path = external/GDataXML;
 			sourceTree = SOURCE_ROOT;
 		};
+		F496F65B1B178ECE00C3ADAC /* GUITabPager */ = {
+			isa = PBXGroup;
+			children = (
+				F496F65C1B178ECE00C3ADAC /* GUITabPagerViewController.h */,
+				F496F65D1B178ECE00C3ADAC /* GUITabPagerViewController.m */,
+				F496F65E1B178ECE00C3ADAC /* GUITabScrollView.h */,
+				F496F65F1B178ECE00C3ADAC /* GUITabScrollView.m */,
+				F496F6601B178ECE00C3ADAC /* LICENSE */,
+			);
+			name = GUITabPager;
+			path = external/GUITabPager;
+			sourceTree = SOURCE_ROOT;
+		};
+		F496F6691B179C3900C3ADAC /* MealPlanner WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F496F66C1B179C3900C3ADAC /* MensaTableController.swift */,
+				F496F68A1B179D1C00C3ADAC /* MensaInterfaceController.swift */,
+				F496F66E1B179C3900C3ADAC /* GlanceController.swift */,
+				F496F6701B179C3900C3ADAC /* Images.xcassets */,
+				F496F66A1B179C3900C3ADAC /* Supporting Files */,
+			);
+			path = "MealPlanner WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		F496F66A1B179C3900C3ADAC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F496F66B1B179C3900C3ADAC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F496F6781B179C3900C3ADAC /* MealPlanner WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				F496F67B1B179C3900C3ADAC /* Interface.storyboard */,
+				F496F67E1B179C3900C3ADAC /* Images.xcassets */,
+				F496F6791B179C3900C3ADAC /* Supporting Files */,
+			);
+			path = "MealPlanner WatchKit App";
+			sourceTree = "<group>";
+		};
+		F496F6791B179C3900C3ADAC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F496F67A1B179C3900C3ADAC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		F4D94D841B0692F50035EE6A = {
 			isa = PBXGroup;
 			children = (
+				F4A557CB1B17E55200956AF0 /* libxml2.dylib */,
+				F4B010751B16A3E500641B5D /* CoreLocation.framework */,
 				F462BF7F1B077ED400A60A8F /* libxml2.2.dylib */,
 				F4D94DB21B0695720035EE6A /* External */,
 				F4D94D8F1B0692F50035EE6A /* MealPlanner */,
+				F496F6691B179C3900C3ADAC /* MealPlanner WatchKit Extension */,
+				F496F6781B179C3900C3ADAC /* MealPlanner WatchKit App */,
 				F4D94D8E1B0692F50035EE6A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,6 +198,8 @@
 			isa = PBXGroup;
 			children = (
 				F4D94D8D1B0692F50035EE6A /* MealPlanner.app */,
+				F496F6681B179C3800C3ADAC /* MealPlanner WatchKit Extension.appex */,
+				F496F6741B179C3900C3ADAC /* MealPlanner WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,7 +211,7 @@
 				F4D94DF01B06AE010035EE6A /* Globals.swift */,
 				F4D94DF41B06BD350035EE6A /* Mealplan.swift */,
 				F4D94D921B0692F60035EE6A /* AppDelegate.swift */,
-				F4D94D941B0692F60035EE6A /* MealPlanController.swift */,
+				F4D94D941B0692F60035EE6A /* MensasPagerController.swift */,
 				F4D94DF21B06B3E40035EE6A /* MealsTableController.swift */,
 				F4D94D961B0692F60035EE6A /* Main.storyboard */,
 				F4D94D991B0692F60035EE6A /* Images.xcassets */,
@@ -116,38 +232,48 @@
 		F4D94DB21B0695720035EE6A /* External */ = {
 			isa = PBXGroup;
 			children = (
-				F48510141B133BE50058C663 /* GDataXML */,
-				F4D94DFB1B06C1980035EE6A /* Swift-HTML-Parser */,
-				F4D94DE71B06ACBF0035EE6A /* GUITabPager */,
+				F496F65B1B178ECE00C3ADAC /* GUITabPager */,
+				F496F6571B178EC400C3ADAC /* GDataXML */,
 			);
 			path = External;
-			sourceTree = "<group>";
-		};
-		F4D94DE71B06ACBF0035EE6A /* GUITabPager */ = {
-			isa = PBXGroup;
-			children = (
-				F4D94DE81B06ACBF0035EE6A /* GUITabPagerViewController.h */,
-				F4D94DE91B06ACBF0035EE6A /* GUITabPagerViewController.m */,
-				F4D94DEA1B06ACBF0035EE6A /* GUITabScrollView.h */,
-				F4D94DEB1B06ACBF0035EE6A /* GUITabScrollView.m */,
-				F4D94DEC1B06ACBF0035EE6A /* LICENSE */,
-			);
-			path = GUITabPager;
-			sourceTree = "<group>";
-		};
-		F4D94DFB1B06C1980035EE6A /* Swift-HTML-Parser */ = {
-			isa = PBXGroup;
-			children = (
-				F4D94DFC1B06C1980035EE6A /* HTMLNode.swift */,
-				F4D94DFD1B06C1980035EE6A /* HTMLParser.swift */,
-				F4D94DFE1B06C1980035EE6A /* LICENSE */,
-			);
-			path = "Swift-HTML-Parser";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F496F6671B179C3800C3ADAC /* MealPlanner WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F496F6861B179C3900C3ADAC /* Build configuration list for PBXNativeTarget "MealPlanner WatchKit Extension" */;
+			buildPhases = (
+				F496F6641B179C3800C3ADAC /* Sources */,
+				F496F6651B179C3800C3ADAC /* Frameworks */,
+				F496F6661B179C3800C3ADAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F496F6771B179C3900C3ADAC /* PBXTargetDependency */,
+			);
+			name = "MealPlanner WatchKit Extension";
+			productName = "MealPlanner WatchKit Extension";
+			productReference = F496F6681B179C3800C3ADAC /* MealPlanner WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		F496F6731B179C3900C3ADAC /* MealPlanner WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F496F6831B179C3900C3ADAC /* Build configuration list for PBXNativeTarget "MealPlanner WatchKit App" */;
+			buildPhases = (
+				F496F6721B179C3900C3ADAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MealPlanner WatchKit App";
+			productName = "MealPlanner WatchKit App";
+			productReference = F496F6741B179C3900C3ADAC /* MealPlanner WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
+		};
 		F4D94D8C1B0692F50035EE6A /* MealPlanner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4D94DAC1B0692F70035EE6A /* Build configuration list for PBXNativeTarget "MealPlanner" */;
@@ -155,10 +281,12 @@
 				F4D94D891B0692F50035EE6A /* Sources */,
 				F4D94D8A1B0692F50035EE6A /* Frameworks */,
 				F4D94D8B1B0692F50035EE6A /* Resources */,
+				F496F6891B179C3900C3ADAC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F496F6811B179C3900C3ADAC /* PBXTargetDependency */,
 			);
 			name = MealPlanner;
 			productName = MealPlanner;
@@ -174,6 +302,12 @@
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Simon Grätzer";
 				TargetAttributes = {
+					F496F6671B179C3800C3ADAC = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					F496F6731B179C3900C3ADAC = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
 					F4D94D8C1B0692F50035EE6A = {
 						CreatedOnToolsVersion = 6.3.1;
 					};
@@ -193,17 +327,38 @@
 			projectRoot = "";
 			targets = (
 				F4D94D8C1B0692F50035EE6A /* MealPlanner */,
+				F496F6671B179C3800C3ADAC /* MealPlanner WatchKit Extension */,
+				F496F6731B179C3900C3ADAC /* MealPlanner WatchKit App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F496F6661B179C3800C3ADAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F496F6751B179C3900C3ADAC /* MealPlanner WatchKit App.app in Resources */,
+				F496F6711B179C3900C3ADAC /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F496F6721B179C3900C3ADAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F496F67D1B179C3900C3ADAC /* Interface.storyboard in Resources */,
+				F496F67F1B179C3900C3ADAC /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4D94D8B1B0692F50035EE6A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F4D94D981B0692F60035EE6A /* Main.storyboard in Resources */,
 				F4D94D9D1B0692F70035EE6A /* LaunchScreen.xib in Resources */,
+				F496F6631B178ECE00C3ADAC /* LICENSE in Resources */,
 				F4D94D9A1B0692F60035EE6A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,26 +366,58 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F496F6641B179C3800C3ADAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F496F68C1B17A1BC00C3ADAC /* Globals.swift in Sources */,
+				F496F66D1B179C3900C3ADAC /* MensaTableController.swift in Sources */,
+				F496F68B1B179D1C00C3ADAC /* MensaInterfaceController.swift in Sources */,
+				F4A557C91B17D67A00956AF0 /* Mealplan.swift in Sources */,
+				F496F66F1B179C3900C3ADAC /* GlanceController.swift in Sources */,
+				F4A557CA1B17DC1500956AF0 /* GDataXMLNode.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4D94D891B0692F50035EE6A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4D94E021B06C1980035EE6A /* HTMLParser.swift in Sources */,
-				F4D94DED1B06ACBF0035EE6A /* GUITabPagerViewController.m in Sources */,
-				F4D94D951B0692F60035EE6A /* MealPlanController.swift in Sources */,
+				F496F6611B178ECE00C3ADAC /* GUITabPagerViewController.m in Sources */,
+				F496F65A1B178EC400C3ADAC /* GDataXMLNode.m in Sources */,
 				F4D94D931B0692F60035EE6A /* AppDelegate.swift in Sources */,
 				F4D94DF51B06BD350035EE6A /* Mealplan.swift in Sources */,
-				F4D94E011B06C1980035EE6A /* HTMLNode.swift in Sources */,
+				F496F6621B178ECE00C3ADAC /* GUITabScrollView.m in Sources */,
 				F4D94DF31B06B3E40035EE6A /* MealsTableController.swift in Sources */,
-				F48510171B133BE50058C663 /* GDataXMLNode.m in Sources */,
+				F4B010B71B176CC100641B5D /* MensasPagerController.swift in Sources */,
 				F4D94DF11B06AE010035EE6A /* Globals.swift in Sources */,
-				F4D94DEE1B06ACBF0035EE6A /* GUITabScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F496F6771B179C3900C3ADAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F496F6731B179C3900C3ADAC /* MealPlanner WatchKit App */;
+			targetProxy = F496F6761B179C3900C3ADAC /* PBXContainerItemProxy */;
+		};
+		F496F6811B179C3900C3ADAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F496F6671B179C3800C3ADAC /* MealPlanner WatchKit Extension */;
+			targetProxy = F496F6801B179C3900C3ADAC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		F496F67B1B179C3900C3ADAC /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F496F67C1B179C3900C3ADAC /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		F4D94D961B0692F60035EE6A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -250,6 +437,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F496F6841B179C3900C3ADAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IBSC_MODULE = MealPlanner_WatchKit_Extension;
+				INFOPLIST_FILE = "MealPlanner WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		F496F6851B179C3900C3ADAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				IBSC_MODULE = MealPlanner_WatchKit_Extension;
+				INFOPLIST_FILE = "MealPlanner WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
+		F496F6871B179C3900C3ADAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "MealPlanner WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MealPlanner/MealPlanner-Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		F496F6881B179C3900C3ADAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "MealPlanner WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "MealPlanner/MealPlanner-Bridging-Header.h";
+			};
+			name = Release;
+		};
 		F4D94DAA1B0692F70035EE6A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -286,6 +531,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -324,6 +574,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -338,7 +593,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = MealPlanner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -354,7 +608,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = MealPlanner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -366,6 +619,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F496F6831B179C3900C3ADAC /* Build configuration list for PBXNativeTarget "MealPlanner WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F496F6841B179C3900C3ADAC /* Debug */,
+				F496F6851B179C3900C3ADAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F496F6861B179C3900C3ADAC /* Build configuration list for PBXNativeTarget "MealPlanner WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F496F6871B179C3900C3ADAC /* Debug */,
+				F496F6881B179C3900C3ADAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F4D94D881B0692F50035EE6A /* Build configuration list for PBXProject "MealPlanner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

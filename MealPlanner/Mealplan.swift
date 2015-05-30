@@ -10,7 +10,6 @@ import Foundation
 
 class Mealplan: AnyObject {
     var days = [Day]()
-    var today : Day?
     
     class Day: AnyObject {
         var name : String?
@@ -33,6 +32,28 @@ class Mealplan: AnyObject {
         var price : Double = 0
     }
     
+    private static var mealplanMap = Dictionary<String, Mealplan>()
+    static func CreateMealplan(mensa :Mensa, callback: (Mealplan) -> Void) {
+        if let mealplan = self.mealplanMap[mensa.name] {
+            callback(mealplan)
+            return
+        }
+        
+        let session = NSURLSession.sharedSession()
+        let url = NSURL(string: mensa.url)
+        // Url is statically set
+        var task = session.dataTaskWithURL(url!) { (data, response, error) -> Void in
+            if error != nil {
+                println("\(error.localizedDescription)")
+                return
+            }
+            let mensaplan = Mealplan(data: data)
+            self.mealplanMap[mensa.name] = mensaplan
+            callback(mensaplan)
+        }
+        task.resume()
+    }
+    
     init(data:NSData) {
         var err : NSError?
         //let options = CInt(HTML_PARSE_NOERROR.value | HTML_PARSE_RECOVER.value)
@@ -51,10 +72,6 @@ class Mealplan: AnyObject {
             if let day = parseDay(parser, weekday:weekday+nextSuffix) {
                 days.append(day)
             }
-        }
-        // TODO Current day
-        if days.count > 0 {
-            today = days[0]
         }
     }
     
