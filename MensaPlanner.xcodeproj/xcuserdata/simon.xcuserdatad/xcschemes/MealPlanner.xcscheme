@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F4D94D8C1B0692F50035EE6A"
-               BuildableName = "MealPlanner.app"
-               BlueprintName = "MealPlanner"
-               ReferencedContainer = "container:MealPlanner.xcodeproj">
+               BuildableName = "MensaPlanner.app"
+               BlueprintName = "MensaPlanner"
+               ReferencedContainer = "container:MensaPlanner.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F4D94D8C1B0692F50035EE6A"
-            BuildableName = "MealPlanner.app"
-            BlueprintName = "MealPlanner"
-            ReferencedContainer = "container:MealPlanner.xcodeproj">
+            BuildableName = "MensaPlanner.app"
+            BlueprintName = "MensaPlanner"
+            ReferencedContainer = "container:MensaPlanner.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F4D94D8C1B0692F50035EE6A"
-            BuildableName = "MealPlanner.app"
-            BlueprintName = "MealPlanner"
-            ReferencedContainer = "container:MealPlanner.xcodeproj">
+            BuildableName = "MensaPlanner.app"
+            BlueprintName = "MensaPlanner"
+            ReferencedContainer = "container:MensaPlanner.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F4D94D8C1B0692F50035EE6A"
-            BuildableName = "MealPlanner.app"
-            BlueprintName = "MealPlanner"
-            ReferencedContainer = "container:MealPlanner.xcodeproj">
+            BuildableName = "MensaPlanner.app"
+            BlueprintName = "MensaPlanner"
+            ReferencedContainer = "container:MensaPlanner.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

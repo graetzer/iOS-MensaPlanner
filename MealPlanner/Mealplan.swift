@@ -14,17 +14,8 @@ class Mealplan: AnyObject {
     class Day: AnyObject {
         var name : String?
         var menus = [Menu]()
-        
-        /*
-        private Pattern datePattern = Pattern.compile("([0-9][0-9])\\.([0-9][0-9])\\.([0-9][0-9][0-9][0-9])");
-        
-        public boolean IsToday() {
-        Calendar calendar = Calendar.getInstance();
-        String test = String.format("%02d.%02d.%04d", calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.YEAR));
-        Log.d(TAG, test);
-        return name.contains(test);
-        }
-        */
+        var dayNumber : Int = 0
+        var note : String?
     }
     
     class Menu: AnyObject {
@@ -33,11 +24,14 @@ class Mealplan: AnyObject {
     }
     
     private static var mealplanMap = Dictionary<String, Mealplan>()
+    //static var dateFormatter : NSDateFormatter? = nil
     static func CreateMealplan(mensa :Mensa, callback: (Mealplan) -> Void) {
         if let mealplan = self.mealplanMap[mensa.name] {
             callback(mealplan)
             return
         }
+        //let fileName =
+        
         
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: mensa.url)
@@ -62,41 +56,48 @@ class Mealplan: AnyObject {
         if err != nil {return}
         
         let weekdays = ["montag", "dienstag", "mittwoch", "donnerstag", "freitag"]
+        for var i = 0; i < weekdays.count; i++ {
+            let day = parseDay(parser, weekday:weekdays[i])
+            day.dayNumber = i
+            days.append(day)
+        }
+        /*
         let nextSuffix = "Naechste"
         for weekday in weekdays {
-            if let day = parseDay(parser, weekday:weekday) {
-                days.append(day)
-            }
-        }
-        for weekday in weekdays {
             if let day = parseDay(parser, weekday:weekday+nextSuffix) {
+                day.dayNumber = dayNumber
                 days.append(day)
             }
-        }
+            dayNumber++
+        }*/
     }
     
-    private let trimChars = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-    private func parseDay(parser: GDataXMLDocument, weekday : String) -> Day? {
-        var err : NSError?
-        let node = parser.firstNodeForXPath("//div[@id=\"\(weekday)\"]", error: &err)
-        if node == nil {return nil}
-        
+    private static let trimChars = NSCharacterSet(charactersInString: "\n\r\t ")
+    private func parseDay(parser: GDataXMLDocument, weekday : String) -> Day {
         let day = Day()
-        let nameNode = parser.firstNodeForXPath("//a[@data-anchor=\"#\(weekday)\"]", error: &err)
-        if nameNode != nil {
-            day.name = nameNode.stringValue().stringByTrimmingCharactersInSet(trimChars)
-        }
-        let elem = node as! GDataXMLElement
         
-        // Every table row is a menu
+        var err : NSError?
         let dayElem = parser.firstNodeForXPath("//div[@id=\"\(weekday)\"]", error: &err) as? GDataXMLElement
-        if dayElem == nil {return nil}
+        if dayElem == nil {return day}
+        
+        let nameNode = parser.firstNodeForXPath("//a[@data-anchor=\"#\(weekday)\"]", error: &err)
+        if let name = nameNode?.stringValue() {
+            day.name = name.stringByTrimmingCharactersInSet(Mealplan.trimChars)
+        }
+        
         let table = dayElem!.elementsForName("table")
-        if table == nil || table.count == 0 {return nil}
+        if table == nil || table.count == 0 {
+            // Find a message, probably mensa closed
+            let node = dayElem!.firstNodeForXPath("./div[@id=\"note\"]", error: &err)
+            if node != nil {
+                day.note = node.stringValue()?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
+            }
+            return day
+        }
         let tbody = table[0].elementsForName("tbody")
-        if tbody == nil || tbody.count == 0 {return nil}
+        if tbody == nil || tbody.count == 0 {return day}
         let trs = tbody[0].elementsForName("tr")
-        if trs == nil || trs.count == 0 {return nil}
+        if trs == nil || trs.count == 0 {return day}
         
         for nTr in trs {
             let tr = nTr as! GDataXMLElement
@@ -112,16 +113,16 @@ class Mealplan: AnyObject {
                 if type == nil {continue}
                 switch(type!) {
                     case "category":
-                        menu.category = td.stringValue()?.stringByTrimmingCharactersInSet(trimChars)
+                        menu.category = td.stringValue()?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
                         break
                     case "menue", "extra":
-                        menu.title = td.stringValue()?.stringByTrimmingCharactersInSet(trimChars)
+                        menu.title = td.stringValue()?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
                         break
                     case "price":
                         var contents = td.stringValue()
                         contents = contents?.stringByReplacingOccurrencesOfString("€", withString: "")
                         contents = contents?.stringByReplacingOccurrencesOfString(",", withString: ".")
-                        contents = contents?.stringByTrimmingCharactersInSet(trimChars)
+                        contents = contents?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
                         menu.price = (contents as NSString).doubleValue
                         break
                     default:break

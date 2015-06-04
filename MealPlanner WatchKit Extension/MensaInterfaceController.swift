@@ -24,8 +24,7 @@ class MensaInterfaceController: WKInterfaceController {
         numberFormatter.locale = NSLocale(localeIdentifier: "de_DE")
         
         if mensa != nil {
-            let name = mensa!.name.stringByReplacingOccurrencesOfString("Mensa ", withString: "")
-            self.setTitle(name)
+            self.setTitle(mensa!.name)
             Mealplan.CreateMealplan(mensa!, callback: {
                 self.mealplan = $0
                 // TODO figure out today

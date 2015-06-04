@@ -12,23 +12,20 @@ struct Globals {
     static let rwthBlue = UIColor(rgba: "#00549F")
     static let keySelectedMensa = "org.graetzer.selected_mensa"
     static let mensas = [
-        Mensa(name:"Mensa Academica",
+        Mensa(name:"Academica",
             address:"Aachen Pontwall 3",
             url:"http://www.studentenwerk-aachen.de/speiseplaene/academica-w.html"),
-        Mensa(name:"Mensa Academica",
-            address:"Aachen Pontwall 3",
-            url:"http://www.studentenwerk-aachen.de/speiseplaene/academica-w.html"),
-        Mensa(name:"Mensa Ahornstraße",
+        Mensa(name:"Ahornstraße",
             address:"Aachen Ahornstraße 55",
             url:"http://www.studentenwerk-aachen.de/speiseplaene/ahornstrasse-w.html"),
-        Mensa(name:"Mensa Bistro Templergraben",
+        Mensa(name:"Bistro Templergraben",
             address:"Aachen Templergraben 55",
             url:"http://www.studentenwerk-aachen.de/speiseplaene/templergraben-w.html"),
-        Mensa(name:"Mensa Bayernallee", address:"Aachen Bayernallee 9", url:"http://www.studentenwerk-aachen.de/speiseplaene/bayernallee-w.html"),
-        Mensa(name:"Mensa Eupener Straße", address:"Aachen Eupener Straße 70", url:"http://www.studentenwerk-aachen.de/speiseplaene/eupenerstrasse-w.html"),
-        Mensa(name:"Mensa Goethestraße",  address:"Aachen Goethestraße 3", url:"http://www.studentenwerk-aachen.de/speiseplaene/goethestrasse-w.html"),
-        Mensa(name:"Mensa Vita",  address:"Aachen Helmertweg 1", url:"http://www.studentenwerk-aachen.de/speiseplaene/vita-w.html"),
-        Mensa(name:"Mensa Jülich",  address:"Aachen Heinrich-Mußmann-Str. 1", url:"http://www.studentenwerk-aachen.de/speiseplaene/juelich-w.html")]
+        Mensa(name:"Bayernallee", address:"Aachen Bayernallee 9", url:"http://www.studentenwerk-aachen.de/speiseplaene/bayernallee-w.html"),
+        Mensa(name:"Eupener Straße", address:"Aachen Eupener Straße 70", url:"http://www.studentenwerk-aachen.de/speiseplaene/eupenerstrasse-w.html"),
+        Mensa(name:"Goethestraße",  address:"Aachen Goethestraße 3", url:"http://www.studentenwerk-aachen.de/speiseplaene/goethestrasse-w.html"),
+        Mensa(name:"Vita",  address:"Aachen Helmertweg 1", url:"http://www.studentenwerk-aachen.de/speiseplaene/vita-w.html"),
+        Mensa(name:"Jülich",  address:"Aachen Heinrich-Mußmann-Str. 1", url:"http://www.studentenwerk-aachen.de/speiseplaene/juelich-w.html")]
 }
 
 class Mensa {

@@ -8,27 +8,28 @@
 
 import UIKit
 
-class MensasPagerController: GUITabPagerViewController, GUITabPagerDataSource, GUITabPagerDelegate {
-    @IBOutlet
-    var contentView : UIScrollView? = nil
-    
+//GUITabPagerViewController, GUITabPagerDataSource, GUITabPagerDelegate
+class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource {
+    private var weekdayControl : UISegmentedControl? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self
-        self.dataSource = self
+        self.datasource = self
         
-        let control = UISegmentedControl(items: ["Mo", "Di", "Mi", "Do", "Fr"])
-        control.tintColor = UIColor.whiteColor()
+        weekdayControl = UISegmentedControl(items: ["Mo", "Di", "Mi", "Do", "Fr"])
+        weekdayControl?.tintColor = UIColor.whiteColor()
         if let bar = self.navigationController?.navigationBar {
-            control.frame = CGRectInset(bar.bounds, 0, 5)
+            weekdayControl?.frame = CGRectInset(bar.bounds, 0, 5)
         }
-        self.navigationItem.titleView = control
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        self.reloadData()
+        weekdayControl?.addTarget(self, action: "changedDaySelection:", forControlEvents: .ValueChanged)
+        self.navigationItem.titleView = weekdayControl
+        
+        let gregorian = NSCalendar.currentCalendar()
+        gregorian.firstWeekday = 2 // Monday
+        let weekday = gregorian.ordinalityOfUnit(.CalendarUnitWeekday, inUnit:.CalendarUnitWeekOfMonth, forDate: NSDate())
+        if weekday < weekdayControl!.numberOfSegments+1 {
+            self.weekdayControl?.selectedSegmentIndex = weekday - 1
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -36,25 +37,41 @@ class MensasPagerController: GUITabPagerViewController, GUITabPagerDataSource, G
         //self.reloadData()
     }
     
-    // MARK: GUITabPagerDataSource
+    // MARK: IBAction
+    
+    func changedDaySelection(sender: UISegmentedControl) {
+        self.reloadData()
+    }
+    
+    // MARK: SGTabbedPagerDatasource
+    
     func numberOfViewControllers() -> Int {
         return Globals.mensas.count
     }
     
-    func viewControllerForIndex(index: Int) -> UIViewController! {
-        let mensa = Globals.mensas[index]
+    func viewController(page:Int) -> UIViewController {
+        return demovc()
+        /*let mensa = Globals.mensas[page]
         let mealTable = self.storyboard?.instantiateViewControllerWithIdentifier("MealsTableController") as! MealsTableController
         mealTable.mensa = mensa
-        Mealplan.CreateMealplan(mensa, callback: {mealTable.day = $0.days[0]})
-        return mealTable
+        Mealplan.CreateMealplan(mensa, callback: { mealplan -> Void in
+            var sel : Mealplan.Day? = nil
+            for day in mealplan.days {
+                if day.dayNumber == self.weekdayControl?.selectedSegmentIndex {
+                    sel = day
+                    break;
+                }
+            }
+            mealTable.day = sel
+        })
+        return mealTable*/
     }
     
-    // MARK: GUITabPagerDelegate
-    func titleForTabAtIndex(index: Int) -> String! {
-        return Globals.mensas[index].name
+    func viewControllerTitle(page:Int) -> String {
+        return "Mensa \(Globals.mensas[page].name)"
     }
     
-    func tabColor() -> UIColor! {
+    func tabColor(page:Int) -> UIColor {
         return Globals.rwthBlue
     }
 }

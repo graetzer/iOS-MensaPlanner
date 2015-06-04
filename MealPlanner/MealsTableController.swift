@@ -18,16 +18,14 @@ class MealsTableController: UITableViewController {
     }
     var day : Mealplan.Day? = nil {
         didSet {
+            self.tableView.backgroundView = nil
+            
+            updateEmptyIndicator()
             if self.isViewLoaded() {
                 self.tableView.reloadData()
-                if activityIndicator != nil {
-                    activityIndicator!.removeFromSuperview()
-                    activityIndicator = nil
-                }
             }
         }
     }
-    private var activityIndicator : UIActivityIndicatorView?
     
     /// Currency formatter
     private let numberFormatter = NSNumberFormatter()
@@ -38,21 +36,12 @@ class MealsTableController: UITableViewController {
         numberFormatter.locale = NSLocale(localeIdentifier: "de_DE")
         
         self.tableView.allowsSelection = false;
-        if day == nil {
-            // TODO add loading indicator
-            // Maybe not needed
-        }
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if day == nil {
-            let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-            indicator.frame = self.view.bounds
-            self.view.addSubview(indicator)
-            indicator.startAnimating()
-            activityIndicator = indicator
-        }
+        updateEmptyIndicator()
     }
     
     // MARK: UITableViewDelegate
@@ -71,11 +60,38 @@ class MealsTableController: UITableViewController {
             cell.menuLabel.text = menu.title
             cell.categoryLabel.text = menu.category
             cell.priceLabel.text = numberFormatter.stringFromNumber(menu.price)
+            
+            if indexPath.row % 2 == 1 {
+                cell.contentView.backgroundColor = UIColor(rgba: "#F3F3F3")
+            } else {
+                cell.contentView.backgroundColor = nil
+            }
         }
         
         return cell
     }
-
+    
+    func updateEmptyIndicator() {
+        if self.day == nil {
+            let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            self.tableView.backgroundView = indicator
+            self.tableView.separatorStyle = .None
+            indicator.startAnimating()
+        } else if self.day?.menus.count > 0 {
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = .SingleLine
+        } else {
+            let label = UILabel(frame: CGRectZero)
+            if let note = self.day?.note {
+                label.text = note
+            } else {
+                label.text = NSLocalizedString("No Data Found", comment: "empty mealplan message")
+            }
+            label.textAlignment = .Center
+            self.tableView.backgroundView = label
+            self.tableView.separatorStyle = .None
+        }
+    }
 }
 
 class MensaTableViewCell: UITableViewCell {
