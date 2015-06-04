@@ -9,7 +9,6 @@
 #ifndef MealPlanner_Bridging_Header_h
 #define MealPlanner_Bridging_Header_h
 
-#import "GUITabPagerViewController.h"
 #import "GDataXMLNode.h"
 
 #endif

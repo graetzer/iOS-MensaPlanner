@@ -23,7 +23,7 @@
         <!--Mensas Pager Controller-->
         <scene sceneID="65M-GC-Rbz">
             <objects>
-                <viewController storyboardIdentifier="MensasPagerController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TVO-H8-ijp" customClass="MensasPagerController" customModule="MealPlanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MensasPagerController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TVO-H8-ijp" customClass="MensasPagerController" customModule="MensaPlanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ei0-cX-bur">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,21 +38,21 @@
         <!--Meals Table Controller-->
         <scene sceneID="bcX-zO-PAh">
             <objects>
-                <tableViewController storyboardIdentifier="MealsTableController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYp-b7-dec" customClass="MealsTableController" customModule="MealPlanner" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MealsTableController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYp-b7-dec" customClass="MealsTableController" customModule="MensaPlanner" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="3aV-Or-NoD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="MensaCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MensaCell" rowHeight="80" id="C8C-uS-rES" customClass="MensaTableViewCell" customModule="MealPlanner" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="MensaCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MensaCell" rowHeight="80" id="C8C-uS-rES" customClass="MensaTableViewCell" customModule="MensaPlanner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C8C-uS-rES" id="c8c-xR-pgm">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3,50€" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZzM-3W-Rdb">
-                                            <rect key="frame" x="255" y="7" width="57" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3,50€" textAlignment="right" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZzM-3W-Rdb">
+                                            <rect key="frame" x="255" y="7" width="57" height="35"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <color key="textColor" red="0.2347876861" green="0.35312794149999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>

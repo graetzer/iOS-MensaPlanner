@@ -81,12 +81,40 @@
         <!--Glance Interface Controller-->
         <scene sceneID="rjY-Ar-IMT">
             <objects>
-                <glanceController spacing="0.0" id="Sv0-Ai-Zie" customClass="GlanceController" customModule="MealPlanner_WatchKit_App" customModuleProvider="target">
+                <glanceController spacing="0.0" id="Sv0-Ai-Zie" customClass="GlanceController" customModule="MensaPlanner_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <group alignment="left" id="gv7-I2-MZq"/>
-                        <group alignment="left" id="eew-Gs-W6Y"/>
+                        <group alignment="left" id="gv7-I2-MZq">
+                            <items>
+                                <label alignment="left" text="Mensa Ahornstr" id="aO8-np-zKr"/>
+                            </items>
+                        </group>
+                        <group alignment="left" layout="vertical" id="eew-Gs-W6Y">
+                            <items>
+                                <label width="1" alignment="left" text="Menu" numberOfLines="3" id="inP-XJ-vbe">
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                </label>
+                                <group width="1" alignment="left" id="iUa-Rp-sde">
+                                    <items>
+                                        <label width="79" alignment="left" text="Category" id="Fat-ag-FOE">
+                                            <color key="textColor" red="0.76087181969999995" green="0.78057506070000005" blue="0.82568617720000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                        </label>
+                                        <label alignment="left" text="3,50 €" id="e8U-ub-vAR">
+                                            <color key="textColor" red="0.0" green="0.62595411059999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
+                    <connections>
+                        <outlet property="categoryLabel" destination="Fat-ag-FOE" id="hlY-hh-ReW"/>
+                        <outlet property="mensaLabel" destination="aO8-np-zKr" id="vUA-2o-5jP"/>
+                        <outlet property="menuLabel" destination="inP-XJ-vbe" id="JRE-vs-eUL"/>
+                        <outlet property="priceLabel" destination="e8U-ub-vAR" id="SkE-jg-9hu"/>
+                    </connections>
                 </glanceController>
             </objects>
             <point key="canvasLocation" x="164" y="514"/>

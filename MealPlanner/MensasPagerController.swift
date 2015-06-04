@@ -50,8 +50,8 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource {
     }
     
     func viewController(page:Int) -> UIViewController {
-        return demovc()
-        /*let mensa = Globals.mensas[page]
+        //return demovc()
+        let mensa = Globals.mensas[page]
         let mealTable = self.storyboard?.instantiateViewControllerWithIdentifier("MealsTableController") as! MealsTableController
         mealTable.mensa = mensa
         Mealplan.CreateMealplan(mensa, callback: { mealplan -> Void in
@@ -64,15 +64,11 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource {
             }
             mealTable.day = sel
         })
-        return mealTable*/
+        return mealTable
     }
     
     func viewControllerTitle(page:Int) -> String {
         return "Mensa \(Globals.mensas[page].name)"
-    }
-    
-    func tabColor(page:Int) -> UIColor {
-        return Globals.rwthBlue
     }
 }
 
