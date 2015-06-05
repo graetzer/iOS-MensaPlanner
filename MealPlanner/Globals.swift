@@ -12,20 +12,60 @@ struct Globals {
     static let rwthBlue = UIColor(rgba: "#00549F")
     static let keySelectedMensa = "org.graetzer.selected_mensa"
     static let mensas = [
-        Mensa(name:"Academica",
+        Mensa(name:"Mensa Academica",
             address:"Aachen Pontwall 3",
             url:"http://www.studentenwerk-aachen.de/speiseplaene/academica-w.html"),
-        Mensa(name:"Ahornstraße",
+        Mensa(name:"Ahorn55",
             address:"Aachen Ahornstraße 55",
             url:"http://www.studentenwerk-aachen.de/speiseplaene/ahornstrasse-w.html"),
         Mensa(name:"Bistro Templergraben",
             address:"Aachen Templergraben 55",
             url:"http://www.studentenwerk-aachen.de/speiseplaene/templergraben-w.html"),
-        Mensa(name:"Bayernallee", address:"Aachen Bayernallee 9", url:"http://www.studentenwerk-aachen.de/speiseplaene/bayernallee-w.html"),
-        Mensa(name:"Eupener Straße", address:"Aachen Eupener Straße 70", url:"http://www.studentenwerk-aachen.de/speiseplaene/eupenerstrasse-w.html"),
-        Mensa(name:"Goethestraße",  address:"Aachen Goethestraße 3", url:"http://www.studentenwerk-aachen.de/speiseplaene/goethestrasse-w.html"),
-        Mensa(name:"Vita",  address:"Aachen Helmertweg 1", url:"http://www.studentenwerk-aachen.de/speiseplaene/vita-w.html"),
-        Mensa(name:"Jülich",  address:"Aachen Heinrich-Mußmann-Str. 1", url:"http://www.studentenwerk-aachen.de/speiseplaene/juelich-w.html")]
+        Mensa(name:"Forum Cafete",
+            address:"Aachen Eilfschornsteinstraße 15",
+            url:"http://www.studentenwerk-aachen.de/speiseplaene/forum-w.html"),
+        Mensa(name:"Mensa Bayernallee",
+            address:"Aachen Bayernallee 9",
+            url:"http://www.studentenwerk-aachen.de/speiseplaene/bayernallee-w.html"),
+        Mensa(name:"Mensa Eupener Straße",
+            address:"Aachen Eupener Straße 70",
+            url:"http://www.studentenwerk-aachen.de/speiseplaene/eupenerstrasse-w.html"),
+        Mensa(name:"Gastro Goethe",
+            address:"Aachen Goethestraße 3",
+            url:"http://www.studentenwerk-aachen.de/speiseplaene/goethestrasse-w.html"),
+        Mensa(name:"Mensa Vita",
+            address:"Aachen Helmertweg 1",
+            url:"http://www.studentenwerk-aachen.de/speiseplaene/vita-w.html"),
+        Mensa(name:"Mensa Jülich",
+            address:"Aachen Heinrich-Mußmann-Str. 1",
+            url:"http://www.studentenwerk-aachen.de/speiseplaene/juelich-w.html")]
+    
+    static func enabledMensas() -> [Mensa]{
+        var array = mensas
+        if let disabled:NSArray = disabledMensaNames() {
+            for name in disabled {
+                for var i = 0; i < array.count; i++ {
+                    if array[i].name == name as! String {
+                        array.removeAtIndex(i)
+                        i--
+                    }
+                }
+            }
+        }
+        return array
+    }
+    
+    static func disabledMensaNames() -> NSArray? {
+        let caches = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as! String
+        let path = caches.stringByAppendingPathComponent("_disabled.plist")
+        return NSArray(contentsOfFile: path)
+    }
+    
+    static func storeDisabledMensas(names :NSArray) {
+        let caches = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as! String
+        let path = caches.stringByAppendingPathComponent("_disabled.plist")
+        names.writeToFile(path, atomically: false)
+    }
 }
 
 class Mensa {

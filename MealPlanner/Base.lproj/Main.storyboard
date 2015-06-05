@@ -51,7 +51,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="MensaCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MensaCell" rowHeight="80" id="C8C-uS-rES" customClass="MenuTableViewCell" customModule="MensaPlanner" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="MensaCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="80" id="C8C-uS-rES" customClass="MenuTableViewCell" customModule="MensaPlanner" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="22" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C8C-uS-rES" id="c8c-xR-pgm">
@@ -117,16 +117,16 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FZq-Uu-CQy">
                                             <rect key="frame" x="8" y="16" width="247" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="pNf-VX-Lz4">
                                             <rect key="frame" x="263" y="11" width="51" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <connections>
-                                                <action selector="changedEnableValue:" destination="Dxf-fM-aAi" eventType="valueChanged" id="dfS-ZP-UPw"/>
+                                                <action selector="changedEnableValue:" destination="093-HX-tGk" eventType="valueChanged" id="Q9Y-HD-FqD"/>
                                             </connections>
                                         </switch>
                                     </subviews>
@@ -145,6 +145,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Mensa Selection" id="LTB-Dd-xr5">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Igx-M5-tfh">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="dismissSelection:" destination="093-HX-tGk" id="1WS-iJ-B97"/>
                             </connections>

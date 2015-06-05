@@ -10,31 +10,38 @@ import UIKit
 
 //GUITabPagerViewController, GUITabPagerDataSource, GUITabPagerDelegate
 class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource {
-    private var weekdayControl : UISegmentedControl? = nil
+    private var weekdayControl : UISegmentedControl! = nil
+    private var mensas : [Mensa] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.datasource = self
         
         weekdayControl = UISegmentedControl(items: ["Mo", "Di", "Mi", "Do", "Fr"])
-        weekdayControl?.tintColor = UIColor.whiteColor()
+        weekdayControl.tintColor = UIColor.whiteColor()
         if let bar = self.navigationController?.navigationBar {
-            weekdayControl?.frame = CGRectInset(bar.bounds, 0, 5)
+            weekdayControl.frame = CGRectInset(bar.bounds, 0, 5)
         }
-        weekdayControl?.addTarget(self, action: "changedDaySelection:", forControlEvents: .ValueChanged)
+        weekdayControl.addTarget(self, action: "changedDaySelection:", forControlEvents: .ValueChanged)
         self.navigationItem.titleView = weekdayControl
         
+        // Let's try to make today the current day
         let gregorian = NSCalendar.currentCalendar()
         gregorian.firstWeekday = 2 // Monday
         let weekday = gregorian.ordinalityOfUnit(.CalendarUnitWeekday, inUnit:.CalendarUnitWeekOfMonth, forDate: NSDate())
-        if weekday < weekdayControl!.numberOfSegments+1 {
-            self.weekdayControl?.selectedSegmentIndex = weekday - 1
-        }
+        self.weekdayControl.selectedSegmentIndex = min(weekdayControl!.numberOfSegments-1, max(weekday-1, 0))
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        //self.reloadData()
+    override func viewWillAppear(animated: Bool) {
+        mensas = Globals.enabledMensas()
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if let bar = self.navigationController?.navigationBar {
+            weekdayControl.frame = CGRectInset(bar.bounds, 0, 5)
+        }
     }
     
     // MARK: IBAction
@@ -46,20 +53,21 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource {
     // MARK: SGTabbedPagerDatasource
     
     func numberOfViewControllers() -> Int {
-        return Globals.mensas.count
+        return mensas.count
     }
     
     func viewController(page:Int) -> UIViewController {
         //return demovc()
-        let mensa = Globals.mensas[page]
+        let mensa = mensas[page]
         let mealTable = self.storyboard?.instantiateViewControllerWithIdentifier("MealsTableController") as! MealsTableController
-        mealTable.mensa = mensa
         Mealplan.CreateMealplan(mensa, callback: { mealplan -> Void in
-            var sel : Mealplan.Day? = nil
+            
+            // Select best day
+            let weekday = self.weekdayControl.selectedSegmentIndex
+            var sel : Mealplan.Day? = mealplan.days.last
             for day in mealplan.days {
-                if day.dayNumber == self.weekdayControl?.selectedSegmentIndex {
+                if abs(day.dayNumber - weekday) < abs(sel!.dayNumber - weekday) {
                     sel = day
-                    break;
                 }
             }
             mealTable.day = sel
@@ -68,7 +76,7 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource {
     }
     
     func viewControllerTitle(page:Int) -> String {
-        return "Mensa \(Globals.mensas[page].name)"
+        return mensas[page].name
     }
 }
 

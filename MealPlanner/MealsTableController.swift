@@ -10,12 +10,6 @@ import UIKit
 
 /// Displays the meals for a day
 class MealsTableController: UITableViewController {
-    
-    var mensa : Mensa? = nil {
-        didSet {
-            self.title = mensa?.name
-        }
-    }
     var day : Mealplan.Day? = nil {
         didSet {
             self.tableView.backgroundView = nil

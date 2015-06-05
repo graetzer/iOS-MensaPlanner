@@ -12,25 +12,35 @@ import Foundation
 
 class MensaInterfaceController: WKInterfaceController {
     @IBOutlet weak var table: WKInterfaceTable!
-    private var mensa : Mensa?
     private var mealplan : Mealplan?
 
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        mensa = context as? Mensa
         
         let numberFormatter = NSNumberFormatter()
         numberFormatter.numberStyle = .CurrencyStyle
         numberFormatter.locale = NSLocale(localeIdentifier: "de_DE")
         
-        if mensa != nil {
-            self.setTitle(mensa!.name)
-            Mealplan.CreateMealplan(mensa!, callback: {
-                self.mealplan = $0
-                // TODO figure out today
-                let day = self.mealplan?.days[0]
+        let gregorian = NSCalendar.currentCalendar()
+        gregorian.firstWeekday = 2 // Monday
+        let weekday = gregorian.ordinalityOfUnit(.CalendarUnitWeekday, inUnit:.CalendarUnitWeekOfMonth, forDate: NSDate())
+        
+        if let mensa = context as? Mensa {
+            
+            let name = mensa.name.stringByReplacingOccurrencesOfString("Mensa ", withString: "")
+            self.setTitle(name)
+            Mealplan.CreateMealplan(mensa, callback: {
                 
-                if let menus = day?.menus {
+                // Select best day
+                self.mealplan = $0
+                var sel : Mealplan.Day? = $0.days.last
+                for day in self.mealplan!.days {
+                    if abs(day.dayNumber - weekday) < abs(sel!.dayNumber - weekday) {
+                        sel = day
+                    }
+                }
+                
+                if let menus = sel?.menus {
                     self.table.setNumberOfRows(menus.count, withRowType: "MenusRowType")
                     for var i = 0; i < menus.count; ++i {
                         let row = self.table.rowControllerAtIndex(i) as! MenusRowType
