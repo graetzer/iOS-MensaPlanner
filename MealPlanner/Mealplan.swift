@@ -23,27 +23,45 @@ class Mealplan: AnyObject {
         var price : Double = 0
     }
     
-    private static var mealplanMap = Dictionary<String, Mealplan>()
-    //static var dateFormatter : NSDateFormatter? = nil
     static func CreateMealplan(mensa :Mensa, callback: (Mealplan) -> Void) {
-        if let mealplan = self.mealplanMap[mensa.name] {
-            callback(mealplan)
-            return
+        
+        // Let's try to cache everything for a week
+        let caches = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as! String
+        let path = caches.stringByAppendingPathComponent(mensa.name)
+        var err : NSError?
+        if let attr:NSDictionary = NSFileManager.defaultManager().attributesOfItemAtPath(path, error: &err) {
+            let date = attr.fileModificationDate()
+            if date != nil && date!.compare(NSDate(timeIntervalSinceNow: -5*24*60*60)) == NSComparisonResult.OrderedDescending {
+                // Use the cached file because it's less than a week old
+                if let data = NSData(contentsOfFile: path) {
+                    let mensaplan = Mealplan(data: data)
+                    callback(mensaplan)
+                    return
+                }
+            }
         }
-        //let fileName =
         
         
+        // Download new data
         let session = NSURLSession.sharedSession()
         let url = NSURL(string: mensa.url)
         // Url is statically set
         var task = session.dataTaskWithURL(url!) { (data, response, error) -> Void in
             if error != nil {
                 println("\(error.localizedDescription)")
-                return
+            } else {
+                // Cache this file
+                if !data.writeToFile(path, atomically: false) {
+                    println("Saving file failed")
+                }
+                
+                // Parse in background and then send it to the UI
+                let mensaplan = Mealplan(data: data)
+                // Important UI might break otherwise
+                dispatch_async(dispatch_get_main_queue(), {
+                    callback(mensaplan)
+                })
             }
-            let mensaplan = Mealplan(data: data)
-            self.mealplanMap[mensa.name] = mensaplan
-            callback(mensaplan)
         }
         task.resume()
     }

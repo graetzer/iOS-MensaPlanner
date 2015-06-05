@@ -11,7 +11,7 @@
 		F473CA2C1B206F1000BCA0CC /* SGAnnotatedPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = F473CA1F1B206F1000BCA0CC /* SGAnnotatedPagerController.m */; };
 		F473CA2D1B206F1000BCA0CC /* SGViewPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = F473CA211B206F1000BCA0CC /* SGViewPagerController.m */; };
 		F473CA321B206F5400BCA0CC /* SGTabbedPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F473CA311B206F5400BCA0CC /* SGTabbedPager.swift */; };
-		F473CA341B20987000BCA0CC /* demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F473CA331B20987000BCA0CC /* demo.swift */; };
+		F473CA361B2119DD00BCA0CC /* MensaSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F473CA351B2119DD00BCA0CC /* MensaSelectionController.swift */; };
 		F496F65A1B178EC400C3ADAC /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F496F6591B178EC400C3ADAC /* GDataXMLNode.m */; };
 		F496F66D1B179C3900C3ADAC /* MensaTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496F66C1B179C3900C3ADAC /* MensaTableController.swift */; };
 		F496F66F1B179C3900C3ADAC /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496F66E1B179C3900C3ADAC /* GlanceController.swift */; };
@@ -74,7 +74,7 @@
 		F473CA201B206F1000BCA0CC /* SGViewPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGViewPagerController.h; sourceTree = "<group>"; };
 		F473CA211B206F1000BCA0CC /* SGViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGViewPagerController.m; sourceTree = "<group>"; };
 		F473CA311B206F5400BCA0CC /* SGTabbedPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGTabbedPager.swift; sourceTree = "<group>"; };
-		F473CA331B20987000BCA0CC /* demo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = demo.swift; sourceTree = "<group>"; };
+		F473CA351B2119DD00BCA0CC /* MensaSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MensaSelectionController.swift; sourceTree = "<group>"; };
 		F496F6581B178EC400C3ADAC /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		F496F6591B178EC400C3ADAC /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		F496F6681B179C3800C3ADAC /* MensaPlanner WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MensaPlanner WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,11 +216,11 @@
 				F4D94D921B0692F60035EE6A /* AppDelegate.swift */,
 				F4D94D941B0692F60035EE6A /* MensasPagerController.swift */,
 				F4D94DF21B06B3E40035EE6A /* MealsTableController.swift */,
+				F473CA351B2119DD00BCA0CC /* MensaSelectionController.swift */,
 				F4D94D961B0692F60035EE6A /* Main.storyboard */,
 				F4D94D991B0692F60035EE6A /* Images.xcassets */,
 				F4D94D9B1B0692F70035EE6A /* LaunchScreen.xib */,
 				F4D94D901B0692F60035EE6A /* Supporting Files */,
-				F473CA331B20987000BCA0CC /* demo.swift */,
 			);
 			path = MealPlanner;
 			sourceTree = "<group>";
@@ -390,13 +390,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F473CA2C1B206F1000BCA0CC /* SGAnnotatedPagerController.m in Sources */,
-				F473CA341B20987000BCA0CC /* demo.swift in Sources */,
 				F496F65A1B178EC400C3ADAC /* GDataXMLNode.m in Sources */,
 				F473CA321B206F5400BCA0CC /* SGTabbedPager.swift in Sources */,
 				F4D94D931B0692F60035EE6A /* AppDelegate.swift in Sources */,
 				F4D94DF51B06BD350035EE6A /* Mealplan.swift in Sources */,
 				F4D94DF31B06B3E40035EE6A /* MealsTableController.swift in Sources */,
 				F4B010B71B176CC100641B5D /* MensasPagerController.swift in Sources */,
+				F473CA361B2119DD00BCA0CC /* MensaSelectionController.swift in Sources */,
 				F4D94DF11B06AE010035EE6A /* Globals.swift in Sources */,
 				F473CA2D1B206F1000BCA0CC /* SGViewPagerController.m in Sources */,
 			);

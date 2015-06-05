@@ -36,14 +36,10 @@ class MealsTableController: UITableViewController {
         numberFormatter.locale = NSLocale(localeIdentifier: "de_DE")
         
         self.tableView.allowsSelection = false;
-        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        self.tableView.separatorStyle = .None
         updateEmptyIndicator()
     }
-    
+
     // MARK: UITableViewDelegate
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,9 +49,9 @@ class MealsTableController: UITableViewController {
         return 0
     }
     
-    let MensaCell = "MensaCell"
+    let MenuCell = "MenuCell"
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(MensaCell, forIndexPath: indexPath) as! MensaTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(MenuCell, forIndexPath: indexPath) as! MenuTableViewCell
         if let menu = day?.menus[indexPath.row] {
             cell.menuLabel.text = menu.title
             cell.categoryLabel.text = menu.category
@@ -75,11 +71,9 @@ class MealsTableController: UITableViewController {
         if self.day == nil {
             let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
             self.tableView.backgroundView = indicator
-            self.tableView.separatorStyle = .None
             indicator.startAnimating()
         } else if self.day?.menus.count > 0 {
             self.tableView.backgroundView = nil
-            self.tableView.separatorStyle = .SingleLine
         } else {
             let label = UILabel(frame: CGRectZero)
             if let note = self.day?.note {
@@ -89,12 +83,11 @@ class MealsTableController: UITableViewController {
             }
             label.textAlignment = .Center
             self.tableView.backgroundView = label
-            self.tableView.separatorStyle = .None
         }
     }
 }
 
-class MensaTableViewCell: UITableViewCell {
+class MenuTableViewCell: UITableViewCell {
     @IBOutlet weak var menuLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
