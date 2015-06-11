@@ -30,7 +30,11 @@ class MensaTableController: WKInterfaceController {
 //        }
 //        return nil
     }
-
+    
+    /// If opened from the glance
+    override func handleUserActivity(userInfo: [NSObject : AnyObject]?) {
+        self.pushControllerWithName("MensaInterfaceController", context: Globals.selectedMensa)
+    }
 }
 
 

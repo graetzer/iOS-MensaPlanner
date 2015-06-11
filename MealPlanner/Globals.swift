@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Globals {
+public struct Globals {
     static let rwthBlue = UIColor(rgba: "#00549F")
     static let keySelectedMensa = "org.graetzer.selected_mensa"
     static let mensas = [
@@ -61,20 +61,45 @@ struct Globals {
         return NSArray(contentsOfFile: path)
     }
     
-    static func storeDisabledMensas(names :NSArray) {
+    static func setDisabledMensas(names :NSArray) {
         let caches = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as! String
         let path = caches.stringByAppendingPathComponent("_disabled.plist")
         names.writeToFile(path, atomically: false)
     }
+    
+    private static let keySelectedMensaIndex = "SelectedMensaIndex"
+    static var selectedMensa : Mensa {
+        get {
+            let i = NSUserDefaults.standardUserDefaults().integerForKey(keySelectedMensaIndex)
+            return mensas[min(max(i, 0), mensas.count)]
+        }
+        
+        set {
+            if let i = find(Globals.mensas, newValue) {
+                NSUserDefaults.standardUserDefaults().setInteger(i, forKey: keySelectedMensaIndex)
+            }
+        }
+    }
+    
+    /// Returns 0-6 depending on the current day, starting at monday with 0
+    static func currentWeekdayIndex() -> Int {
+        let cal = NSCalendar.currentCalendar()
+        cal.firstWeekday = 2 // Monday
+        let weekday =  cal.ordinalityOfUnit(.CalendarUnitWeekday, inUnit:.CalendarUnitWeekOfMonth, forDate: NSDate())
+        return weekday - 1// Since this starts at 1
+    }
 }
 
-class Mensa {
+public class Mensa: Equatable {
     var name, address, url : String
     init(name :String, address :String, url :String) {
         self.name = name
         self.address = address
         self.url = url
     }
+}
+public func ==(lhs: Mensa, rhs: Mensa) -> Bool {
+    return lhs.name == rhs.name
 }
 
 extension UIColor {

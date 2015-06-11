@@ -38,7 +38,7 @@ class MensaSelectionController: UITableViewController {
     
     @IBAction func dismissSelection(sender: AnyObject) {
         if disabledMensaNames != nil {
-            Globals.storeDisabledMensas(disabledMensaNames!)
+            Globals.setDisabledMensas(disabledMensaNames!)
         }
         self.dismissViewControllerAnimated(true, completion: nil)
     }

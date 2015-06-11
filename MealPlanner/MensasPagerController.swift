@@ -8,8 +8,10 @@
 
 import UIKit
 
+
+
 //GUITabPagerViewController, GUITabPagerDataSource, GUITabPagerDelegate
-class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource {
+class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource, SGTabbedPagerDelegate {
     private var weekdayControl : UISegmentedControl! = nil
     private var mensas : [Mensa] = []
     
@@ -26,10 +28,8 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource {
         self.navigationItem.titleView = weekdayControl
         
         // Let's try to make today the current day
-        let gregorian = NSCalendar.currentCalendar()
-        gregorian.firstWeekday = 2 // Monday
-        let weekday = gregorian.ordinalityOfUnit(.CalendarUnitWeekday, inUnit:.CalendarUnitWeekOfMonth, forDate: NSDate())
-        self.weekdayControl.selectedSegmentIndex = min(weekdayControl!.numberOfSegments-1, max(weekday-1, 0))
+        let weekday = Globals.currentWeekdayIndex()
+        self.weekdayControl.selectedSegmentIndex = min(weekdayControl!.numberOfSegments-1, max(weekday, 0))
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -60,23 +60,24 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource {
         //return demovc()
         let mensa = mensas[page]
         let mealTable = self.storyboard?.instantiateViewControllerWithIdentifier("MealsTableController") as! MealsTableController
-        Mealplan.CreateMealplan(mensa, callback: { mealplan -> Void in
-            
-            // Select best day
+        Mealplan.CreateMealplan(mensa, callback: { (mealplan, err) -> Void in
             let weekday = self.weekdayControl.selectedSegmentIndex
-            var sel : Mealplan.Day? = mealplan.days.last
-            for day in mealplan.days {
-                if abs(day.dayNumber - weekday) < abs(sel!.dayNumber - weekday) {
-                    sel = day
-                }
+            if let day = mealplan?.dayForIndex(weekday) {// Select best day
+                mealTable.day = day
             }
-            mealTable.day = sel
         })
         return mealTable
     }
     
     func viewControllerTitle(page:Int) -> String {
         return mensas[page].name
+    }
+    
+    // MARK: SGTabbedPagerDelegate
+    
+    func didShowViewController(page: Int) {
+        // Used for glances on watchOS
+        Globals.selectedMensa = mensas[page]
     }
 }
 

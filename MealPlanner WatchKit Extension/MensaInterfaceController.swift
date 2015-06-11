@@ -12,7 +12,6 @@ import Foundation
 
 class MensaInterfaceController: WKInterfaceController {
     @IBOutlet weak var table: WKInterfaceTable!
-    private var mealplan : Mealplan?
 
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
@@ -21,26 +20,21 @@ class MensaInterfaceController: WKInterfaceController {
         numberFormatter.numberStyle = .CurrencyStyle
         numberFormatter.locale = NSLocale(localeIdentifier: "de_DE")
         
-        let gregorian = NSCalendar.currentCalendar()
-        gregorian.firstWeekday = 2 // Monday
-        let weekday = gregorian.ordinalityOfUnit(.CalendarUnitWeekday, inUnit:.CalendarUnitWeekOfMonth, forDate: NSDate())
-        
         if let mensa = context as? Mensa {
             
             let name = mensa.name.stringByReplacingOccurrencesOfString("Mensa ", withString: "")
             self.setTitle(name)
-            Mealplan.CreateMealplan(mensa, callback: {
-                
-                // Select best day
-                self.mealplan = $0
-                var sel : Mealplan.Day? = $0.days.last
-                for day in self.mealplan!.days {
-                    if abs(day.dayNumber - weekday) < abs(sel!.dayNumber - weekday) {
-                        sel = day
-                    }
+            Mealplan.CreateMealplan(mensa, callback: {(mealplan, error) in
+                if mealplan == nil {
+                    let nodata = NSLocalizedString("No Data Found", comment: "empty mealplan message")
+                    self.setTitle(nodata)
+                } else {
+                    
                 }
                 
-                if let menus = sel?.menus {
+                // Select best day
+                let weekday = Globals.currentWeekdayIndex()
+                if let menus = mealplan?.dayForIndex(weekday)?.menus {
                     self.table.setNumberOfRows(menus.count, withRowType: "MenusRowType")
                     for var i = 0; i < menus.count; ++i {
                         let row = self.table.rowControllerAtIndex(i) as! MenusRowType
@@ -51,16 +45,6 @@ class MensaInterfaceController: WKInterfaceController {
                 }
             })
         }
-    }
-
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-    }
-
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
     }
 }
 
