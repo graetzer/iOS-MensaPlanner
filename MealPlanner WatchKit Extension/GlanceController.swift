@@ -1,6 +1,6 @@
 //
 //  GlanceController.swift
-//  MealPlanner WatchKit Extension
+//  MensaPlanner WatchKit Extension
 //
 //  Created by Simon Grätzer on 28.05.15.
 //  Copyright (c) 2015 Simon Grätzer. All rights reserved.

@@ -34,15 +34,17 @@ public class Mealplan: AnyObject {
         // Let's try to cache everything for a week
         let caches = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as! String
         let path = caches.stringByAppendingPathComponent(mensa.name)
-        var err : NSError?
-        if let attr:NSDictionary = NSFileManager.defaultManager().attributesOfItemAtPath(path, error: &err) {
+        var error : NSError?
+        if let attr:NSDictionary = NSFileManager.defaultManager().attributesOfItemAtPath(path, error: &error) {
             let date = attr.fileModificationDate()
             if date != nil && date!.compare(NSDate(timeIntervalSinceNow: -5*24*60*60)) == NSComparisonResult.OrderedDescending {
                 // Use the cached file because it's less than a week old
                 if let data = NSData(contentsOfFile: path) {
                     let mensaplan = Mealplan(data: data)
-                    callback(mensaplan, nil)// Assume this is the UI thread
-                    return// Exit
+                    if mensaplan.days.count > 0 {// Only use this if it seems ok
+                        callback(mensaplan, nil)// Assume this is the UI thread
+                        return// Exit
+                    }
                 }
             }
         }
@@ -52,7 +54,7 @@ public class Mealplan: AnyObject {
         let url = NSURL(string: mensa.url)
         // Url is statically set
         var task = session.dataTaskWithURL(url!) { (data, response, error) -> Void in
-            if err == nil && response.URL?.host == url?.host {
+            if error == nil && response.URL?.host == url?.host {
                 // Do not cache this unless this is a valid file
                 // don't accept redirects, for example from mops
                 if !data.writeToFile(path, atomically: false) {

@@ -86,20 +86,24 @@
                         <group alignment="left" layout="vertical" id="gv7-I2-MZq">
                             <items>
                                 <label alignment="left" text="Mensa Ahornstr" id="aO8-np-zKr"/>
-                                <label width="79" alignment="left" text="Category" id="Fat-ag-FOE">
-                                    <color key="textColor" red="0.76087181969999995" green="0.78057506070000005" blue="0.82568617720000004" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                                </label>
+                                <group width="136" alignment="left" id="NU5-bm-YZV">
+                                    <items>
+                                        <label alignment="left" text="Category" id="Fat-ag-FOE">
+                                            <color key="textColor" red="0.76087181969999995" green="0.78057506070000005" blue="0.82568617720000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                        </label>
+                                        <label alignment="right" text="3,50 €" textAlignment="center" id="e8U-ub-vAR">
+                                            <color key="textColor" red="0.0" green="0.62595411059999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                        </label>
+                                    </items>
+                                </group>
                             </items>
                         </group>
                         <group alignment="left" layout="vertical" id="eew-Gs-W6Y">
                             <items>
                                 <label width="1" alignment="left" text="Menu" numberOfLines="3" id="inP-XJ-vbe">
                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
-                                </label>
-                                <label alignment="center" text="3,50 €" textAlignment="center" id="e8U-ub-vAR">
-                                    <color key="textColor" red="0.0" green="0.62595411059999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
                             </items>
                         </group>

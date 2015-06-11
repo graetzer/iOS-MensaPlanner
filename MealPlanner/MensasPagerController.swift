@@ -64,6 +64,8 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource, SGTabbedPage
             let weekday = self.weekdayControl.selectedSegmentIndex
             if let day = mealplan?.dayForIndex(weekday) {// Select best day
                 mealTable.day = day
+            } else {
+                mealTable.showNoDataFound()
             }
         })
         return mealTable
