@@ -52,14 +52,35 @@ class MealsTableController: UITableViewController {
             cell.priceLabel.text = numberFormatter.stringFromNumber(menu.price)
             
             if indexPath.row % 2 == 1 {
-                cell.contentView.backgroundColor = UIColor(rgba: "#F3F3F3")
+                if menu.price == 0 {
+                    cell.contentView.backgroundColor = UIColor(rgba: "#eaf0ff")
+                } else {
+                    cell.contentView.backgroundColor = UIColor(rgba: "#F3F3F3")
+                }
             } else {
-                cell.contentView.backgroundColor = nil
+                if menu.price == 0 {
+                    cell.contentView.backgroundColor = UIColor(rgba: "#f0f8ff")
+                } else {
+                    cell.contentView.backgroundColor = nil
+                }
             }
+            cell.priceLabel.hidden = menu.price == 0
         }
         
         return cell
     }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let date = day?.date {
+            let label = UILabel(frame: CGRectZero)
+            label.backgroundColor = UIColor.whiteColor()
+            label.textAlignment = .Center
+            label.text = Mealplan.formatter.stringFromDate(date)
+            return label
+        }
+        return nil
+    }
+    
     
     func updateEmptyIndicator() {
         if self.day == nil {

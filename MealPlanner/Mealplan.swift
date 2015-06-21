@@ -22,6 +22,7 @@ public class Mealplan: AnyObject {
     public class Menu: AnyObject {
         var category, title : String?
         var price : Double = 0
+        var isExtra = false
     }
     
     static var formatter : NSDateFormatter!
@@ -116,20 +117,31 @@ public class Mealplan: AnyObject {
             return nil
         }
         
-        let table = dayElem!.elementsForName("table")
-        if table == nil || table.count == 0 {
+        let tables = dayElem!.elementsForName("table")
+        if tables == nil || tables.count == 0 {
             // Find a message, probably mensa closed
             let node = dayElem!.firstNodeForXPath("./div[@id=\"note\"]", error: &err)
             if let val = node.stringValue() {
                 day.note = val.stringByTrimmingCharactersInSet(Mealplan.trimChars)
             }
             return day
+        } else {
+            for table in tables {
+                let menus = parseTable(table as! GDataXMLElement)
+                day.menus += menus
+            }
         }
-        let tbody = table[0].elementsForName("tbody")
-        if tbody == nil || tbody.count == 0 {return day}
-        let trs = tbody[0].elementsForName("tr")
-        if trs == nil || trs.count == 0 {return day}
         
+        return day
+    }
+    
+    private func parseTable(table : GDataXMLElement) -> [Menu] {
+        let tbody = table.elementsForName("tbody")
+        if tbody == nil || tbody.count == 0 {return []}
+        let trs = tbody[0].elementsForName("tr")
+        if trs == nil || trs.count == 0 {return []}
+        
+        var menus = [Menu]()
         for nTr in trs {
             let tr = nTr as! GDataXMLElement
             
@@ -143,39 +155,49 @@ public class Mealplan: AnyObject {
                 let type = td.attributeForName("class")?.stringValue()
                 if type == nil {continue}
                 switch(type!) {
-                    case "category":
-                        menu.category = td.stringValue()?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
-                        break
-                    case "menue", "extra":
-                        menu.title = td.stringValue()?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
-                        break
-                    case "price":
-                        var contents = td.stringValue()
-                        contents = contents?.stringByReplacingOccurrencesOfString("€", withString: "")
-                        contents = contents?.stringByReplacingOccurrencesOfString(",", withString: ".")
-                        contents = contents?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
-                        menu.price = (contents as NSString).doubleValue
-                        break
-                    default:break
+                case "category":
+                    menu.category = td.stringValue()?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
+                    break
+                case "menue", "extra":
+                    menu.title = td.stringValue()?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
+                    break
+                case "price":
+                    var contents = td.stringValue()
+                    contents = contents?.stringByReplacingOccurrencesOfString("€", withString: "")
+                    contents = contents?.stringByReplacingOccurrencesOfString(",", withString: ".")
+                    contents = contents?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
+                    menu.price = (contents as NSString).doubleValue
+                    break
+                default:break
                 }
             }
-            day.menus.append(menu)
+            menus.append(menu)
         }
-        
-        return day
+        return menus
     }
     
-    /// Try to find the best fitting day entry for this day index hhh
-    ///
-    /// :param:  weekday Should be the day of the week, 0-5 or 8-13
+    /** 
+    Try to find the best fitting day entry for this weekday index
+    If weekday is 5 or 6 (saturday or sunday) it will skip to monday.
+    Similary if today is a saturday / sunday and weekday is a day during the week, we skip to the next week
+    
+    :param:  weekday Should be the day of the week, 0-5 or 8-13
+    */
     public func dayForIndex(weekday : Int) -> Day? {
+        if Globals.isWeekend() && weekday < 5 {
+            return dayForIndex(weekday + 7) // Skip to next week
+        }
+        
+        // Try to produce a date object without time
         let cal = NSCalendar.currentCalendar()
         let flags : NSCalendarUnit = .CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay
         let todayComps = cal.components(flags, fromDate: NSDate())
         
-        if let today = cal.dateFromComponents(todayComps) {// Get a date object for today without time
-            let diff = NSTimeInterval(weekday - Globals.currentWeekdayIndex()) // Difference in days
-            let lastDay = NSDate(timeInterval: -diff * 24 * 60 * 60, sinceDate: today)
+        // Get a date object for today without time
+        if let todayDate = cal.dateFromComponents(todayComps) {
+            // Difference in days
+            let diff = NSTimeInterval(weekday - Globals.currentWeekday())
+            let lastDay = NSDate(timeInterval: diff * 24 * 60 * 60, sinceDate: todayDate)
 
             // Select best day
             for day in self.days {

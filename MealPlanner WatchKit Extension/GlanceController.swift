@@ -39,7 +39,7 @@ class  GlanceController: WKInterfaceController {
         let numberFormatter = NSNumberFormatter()
         numberFormatter.numberStyle = .CurrencyStyle
         numberFormatter.locale = NSLocale(localeIdentifier: "de_DE")
-        let weekday = Globals.currentWeekdayIndex()
+        let weekday = Globals.currentWorkdayIndex()
         if let day = mealplan?.dayForIndex(weekday) {
             
             if let note = day.note {

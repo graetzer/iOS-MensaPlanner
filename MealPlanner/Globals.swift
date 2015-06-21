@@ -81,12 +81,26 @@ public struct Globals {
         }
     }
     
-    /// Returns 0-6 depending on the current day, starting at monday with 0
-    static func currentWeekdayIndex() -> Int {
+    /// Current weekday returns 0-6 for each weekday starting with monday
+    static func currentWeekday() -> Int {
         let cal = NSCalendar.currentCalendar()
-        cal.firstWeekday = 2 // Monday
-        let weekday =  cal.ordinalityOfUnit(.CalendarUnitWeekday, inUnit:.CalendarUnitWeekOfMonth, forDate: NSDate())
-        return weekday - 1// Since this starts at 1
+        cal.firstWeekday = 2 // Monday, NSCalendar starts with saturdays
+        return cal.ordinalityOfUnit(.CalendarUnitWeekday,
+            inUnit:.CalendarUnitWeekOfMonth, forDate: NSDate()) - 1
+    }
+    
+    static func isWeekend() -> Bool {
+        let weekday = currentWeekday()
+        return weekday == 5 || weekday == 6
+    }
+    
+    /// Index of the current or next woeking day, uses the current calendar of the user
+    /// Will skip weekends and return 0 (for monday) if the current weekday is a saturday or monday
+    ///
+    /// :returns: 0-4 depending on the current day, starting at monday with 0
+    static func currentWorkdayIndex() -> Int {
+        let weekday = currentWeekday()
+        return weekday < 5 ? weekday : 0// Skip to monday
     }
 }
 

@@ -33,7 +33,7 @@ class MensaInterfaceController: WKInterfaceController {
                 }
                 
                 // Select best day
-                let weekday = Globals.currentWeekdayIndex()
+                let weekday = Globals.currentWorkdayIndex()
                 if let menus = mealplan?.dayForIndex(weekday)?.menus {
                     self.table.setNumberOfRows(menus.count, withRowType: "MenusRowType")
                     for var i = 0; i < menus.count; ++i {

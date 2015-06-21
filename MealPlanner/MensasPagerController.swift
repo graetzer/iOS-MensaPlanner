@@ -28,8 +28,7 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource, SGTabbedPage
         self.navigationItem.titleView = weekdayControl
         
         // Let's try to make today the current day
-        let weekday = Globals.currentWeekdayIndex()
-        self.weekdayControl.selectedSegmentIndex = min(weekdayControl!.numberOfSegments-1, max(weekday, 0))
+        self.weekdayControl.selectedSegmentIndex = Globals.currentWorkdayIndex()
     }
     
     override func viewWillAppear(animated: Bool) {
