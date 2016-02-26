@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E26a" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="9515"/>
     </dependencies>
     <scenes>
         <!--Mensa-->
@@ -50,11 +50,12 @@
                                             </label>
                                             <group width="1" alignment="left" id="Z3F-5h-Rst">
                                                 <items>
-                                                    <label width="79" alignment="left" text="Category" id="dFx-sJ-tUO">
+                                                    <label width="75" alignment="left" verticalAlignment="bottom" text="Category" id="dFx-sJ-tUO">
                                                         <color key="textColor" red="0.76087181972595264" green="0.78057506066093441" blue="0.82568617724867721" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                                        <variation key="device=watch42mm" width="95"/>
                                                     </label>
-                                                    <label alignment="left" text="3,50 €" id="eXG-bB-khY">
+                                                    <label alignment="right" verticalAlignment="bottom" text="3,50 €" id="eXG-bB-khY">
                                                         <color key="textColor" red="0.0" green="0.62595411057842787" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                                     </label>
@@ -92,7 +93,7 @@
                                             <color key="textColor" red="0.76087181969999995" green="0.78057506070000005" blue="0.82568617720000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                         </label>
-                                        <label alignment="right" text="3,50 €" textAlignment="center" id="e8U-ub-vAR">
+                                        <label alignment="right" verticalAlignment="bottom" text="3,50 €" textAlignment="center" id="e8U-ub-vAR">
                                             <color key="textColor" red="0.0" green="0.62595411059999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                         </label>
@@ -102,7 +103,7 @@
                         </group>
                         <group alignment="left" layout="vertical" id="eew-Gs-W6Y">
                             <items>
-                                <label width="1" alignment="left" text="Menu" numberOfLines="3" id="inP-XJ-vbe">
+                                <label width="1" alignment="left" text="Menu" numberOfLines="5" id="inP-XJ-vbe">
                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                 </label>
                             </items>

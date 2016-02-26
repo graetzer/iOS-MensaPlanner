@@ -4,17 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Glance - MealPlanner WatchKit App.xcscheme</key>
+		<key>Glance - MensaPlanner WatchKit App.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>MealPlanner WatchKit App.xcscheme</key>
+		<key>MensaPlanner WatchKit App.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>MealPlanner.xcscheme</key>
+		<key>MensaPlanner.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>

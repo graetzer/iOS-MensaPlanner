@@ -20,7 +20,9 @@ class MensaTableController: WKInterfaceController {
         for var i = 0; i < Globals.mensas.count; ++i {
             let row = table.rowControllerAtIndex(i) as! MensaRowType
             let mensa = Globals.mensas[i]
-            row.mensaTitle.setText(mensa.name)
+            
+            let name = mensa.name.stringByReplacingOccurrencesOfString("Mensa ", withString: "")
+            row.mensaTitle.setText(name)
         }
     }
     

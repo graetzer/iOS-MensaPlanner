@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B1008F0A33ABBA06AB5DA78EA3248998AAB079E3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B1008F0A33ABBA06AB5DA78EA3248998AAB079E3" : 0,
+    "951B8E3541CFB330371F9EE5684D7A3D6A1F2D1D" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F304AE9D-C74B-405E-88FF-557005314103",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B1008F0A33ABBA06AB5DA78EA3248998AAB079E3" : "MealPlanner",
+    "951B8E3541CFB330371F9EE5684D7A3D6A1F2D1D" : "MealPlannerExternal\/SGViewPager"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MensaPlanner",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MensaPlanner.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/graetzer\/SGViewPager.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "951B8E3541CFB330371F9EE5684D7A3D6A1F2D1D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:graetzer\/iOS-MensaPlanner.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B1008F0A33ABBA06AB5DA78EA3248998AAB079E3"
+    }
+  ]
+}

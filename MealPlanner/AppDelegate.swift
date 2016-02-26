@@ -17,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         UINavigationBar.appearance().barTintColor = Globals.rwthBlue
         UINavigationBar.appearance().barStyle = UIBarStyle.BlackTranslucent
+        
+        
+        //let setting = UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert, categories: nil)
+        //application.registerUserNotificationSettings(setting)
+                
         return true
     }
 
@@ -26,6 +31,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
         return true
+    }
+    
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        
+        let mensas = Globals.enabledMensas()
+        var outstanding = mensas.count// will be 0 when done
+        var newData = 0
+
+        for mensa in mensas {
+            Mealplan.LoadMealplan(mensa) { (mealplan, err) -> Void in
+                outstanding--
+                if let plan = mealplan {
+                    if !plan.isCached {
+                        newData++
+                    }
+                    
+                    // all done
+                    if outstanding == 0 {
+                        
+                        /*
+                        let types = application.currentUserNotificationSettings()?.types
+                        if types != nil && types!.contains(.Alert) && !Globals.isWeekend() && !plan.isCached {
+                            let now = Globals.currentWeekday()
+                            for weekday in now...4 {
+                                if let day = mealplan?.dayForIndex(weekday) {// Select best day
+                                    
+                                    let local = UILocalNotification()
+                                    
+                                    // TODO
+                                    
+                                }
+                            }
+                        }*/
+                        
+                        completionHandler(newData > 0 ? .NewData : .NoData)
+                    }
+                }
+            }
+        }
     }
 
 }

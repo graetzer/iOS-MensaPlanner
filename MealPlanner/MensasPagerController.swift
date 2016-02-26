@@ -56,17 +56,18 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource, SGTabbedPage
     }
     
     func viewController(page:Int) -> UIViewController {
-        //return demovc()
         let mensa = mensas[page]
-        let mealTable = self.storyboard?.instantiateViewControllerWithIdentifier("MealsTableController") as! MealsTableController
-        Mealplan.CreateMealplan(mensa, callback: { (mealplan, err) -> Void in
+        let mealTable = self.storyboard?
+            .instantiateViewControllerWithIdentifier("MealsTableController") as! MealsTableController
+        
+        Mealplan.LoadMealplan(mensa) { (mealplan, err) -> Void in
             let weekday = self.weekdayControl.selectedSegmentIndex
             if let day = mealplan?.dayForIndex(weekday) {// Select best day
                 mealTable.day = day
             } else {
                 mealTable.showNoDataFound()
             }
-        })
+        }
         return mealTable
     }
     

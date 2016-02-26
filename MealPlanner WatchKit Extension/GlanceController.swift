@@ -30,9 +30,9 @@ class  GlanceController: WKInterfaceController {
         
         mensaLabel.setText(mensa.name)
         // Ideally this is cached and just loaded from the phone or something
-        Mealplan.CreateMealplan(mensa, callback: {(mealplan, error) in
+        Mealplan.LoadMealplan(mensa) {(mealplan, error) in
             self.updateUI(mealplan)
-        })
+        }
     }
     
     private func updateUI(mealplan : Mealplan?) {

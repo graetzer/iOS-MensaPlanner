@@ -10,6 +10,7 @@ import Foundation
 
 public class Mealplan: AnyObject {
     var days = [Day]()
+    let isCached : Bool
     
     /// Holds list of menus for the day
     public class Day: AnyObject {
@@ -25,62 +26,74 @@ public class Mealplan: AnyObject {
         var isExtra = false
     }
     
-    static var formatter : NSDateFormatter!
-    static func CreateMealplan(mensa :Mensa, callback: (Mealplan?, NSError!) -> Void) {
-        if formatter == nil {
-            formatter = NSDateFormatter()
-            formatter.dateFormat = "dd'.'MM'.'yyyy"
+    public static func cachedMensaPath(mensa :Mensa) -> (Bool, String) {
+        let caches = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] 
+        let path = (caches as NSString).stringByAppendingPathComponent(mensa.name)
+        let fmgr = NSFileManager.defaultManager()
+        if fmgr.fileExistsAtPath(path) {
+            do {
+                let attr:NSDictionary = try fmgr.attributesOfItemAtPath(path)
+                let date = attr.fileModificationDate()
+                let cutoff = NSDate(timeIntervalSinceNow: -5*24*60*60)// 5 days
+                let usable = date != nil ? cutoff.compare(date!) == .OrderedAscending : false
+                return (usable, path)
+            } catch let error as NSError {
+                print("error reading file: \(error.localizedDescription)")
+            }
         }
+        return (false, path)
+    }
+    
+    static func LoadMealplan(mensa :Mensa, completionHandler: (Mealplan?, NSError?) -> Void) {
         
-        // Let's try to cache everything for a week
-        let caches = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] as! String
-        let path = caches.stringByAppendingPathComponent(mensa.name)
-        var error : NSError?
-        if let attr:NSDictionary = NSFileManager.defaultManager().attributesOfItemAtPath(path, error: &error) {
-            let date = attr.fileModificationDate()
-            if date != nil && date!.compare(NSDate(timeIntervalSinceNow: -5*24*60*60)) == NSComparisonResult.OrderedDescending {
-                // Use the cached file because it's less than a week old
-                if let data = NSData(contentsOfFile: path) {
-                    let mensaplan = Mealplan(data: data)
-                    if mensaplan.days.count > 0 {// Only use this if it seems ok
-                        callback(mensaplan, nil)// Assume this is the UI thread
-                        return// Exit
-                    }
+        let (usable, path) = cachedMensaPath(mensa)
+        if usable {
+            if let data = NSData(contentsOfFile: path) {
+                let mensaplan = Mealplan(data: data, isCached: true)
+                if mensaplan.days.count > 0 {// Only use this if it seems ok
+                    completionHandler(mensaplan, nil)// Assume this is the UI thread
+                    return// Exit
                 }
             }
         }
         
         // Download new data with a session
         let session = NSURLSession.sharedSession()
-        let url = NSURL(string: mensa.url)
+        let url = NSURL(string: mensa.url)!
         // Url is statically set
-        var task = session.dataTaskWithURL(url!) { (data, response, error) -> Void in
-            if error == nil && response.URL?.host == url?.host {
-                // Do not cache this unless this is a valid file
-                // don't accept redirects, for example from mops
-                if !data.writeToFile(path, atomically: false) {
-                    println("Saving file failed")
-                }
+        let task = session.dataTaskWithURL(url) { (data, response, error) -> Void in
+            var mealplan : Mealplan?
+            if error == nil && data != nil {
                 
                 // Parse in background and then send it to the UI
-                let mensaplan = Mealplan(data: data)
-                // Important UI might break otherwise
-                dispatch_async(dispatch_get_main_queue(), {
-                    callback(mensaplan, nil)
-                })
-            } else {
-                if error != nil {
-                    println("\(error.localizedDescription)")
+                mealplan = Mealplan(data: data!)
+                if mealplan!.days.count > 0 {
+                    data!.writeToFile(path, atomically: false)
                 }
-                callback(nil, error)
             }
+            
+            // Important UI might break otherwise
+            dispatch_async(dispatch_get_main_queue(), {
+                if error != nil {
+                    print("\(error!.localizedDescription)")
+                }
+                completionHandler(mealplan, error)
+            })
         }
-        task.resume()
+        task.resume()// boom!
     }
     
-    init(data:NSData) {
+    init(data:NSData, isCached:Bool = false) {
+        self.isCached = isCached
+        
         var err : NSError?
-        let parser = GDataXMLDocument(HTMLData: data, error: &err)
+        let parser: GDataXMLDocument!
+        do {
+            parser = try GDataXMLDocument(HTMLData: data)
+        } catch let error as NSError {
+            err = error
+            parser = nil
+        }
         if err != nil {return}
         
         let weekdays = ["montag", "dienstag", "mittwoch", "donnerstag", "freitag"]
@@ -95,17 +108,34 @@ public class Mealplan: AnyObject {
                 days.append(day)
             }
         }
+        
+        days.sortInPlace({$0.date.compare($1.date) == .OrderedAscending})
     }
     
+    // Static for speed
     private static let trimChars = NSCharacterSet(charactersInString: "\n\r\t ,")
+    static var formatter : NSDateFormatter! = nil
     private func parseDay(parser: GDataXMLDocument, weekday : String) -> Day? {
-        let day = Day()
+        if Mealplan.formatter == nil {
+            Mealplan.formatter = NSDateFormatter()
+            Mealplan.formatter.dateFormat = "dd'.'MM'.'yyyy"
+        }
         
-        var err : NSError?
-        let dayElem = parser.firstNodeForXPath("//div[@id=\"\(weekday)\"]", error: &err) as? GDataXMLElement
-        if dayElem == nil {return nil}
+        let dayElem : GDataXMLElement?
+        do {
+            dayElem = try parser.firstNodeForXPath("//div[@id=\"\(weekday)\"]") as? GDataXMLElement
+        } catch {
+            return nil
+        }
         
-        let nameNode = parser.firstNodeForXPath("//a[@data-anchor=\"#\(weekday)\"]", error: &err)
+        let nameNode: GDataXMLNode?
+        do {
+            nameNode = try parser.firstNodeForXPath("//a[@data-anchor=\"#\(weekday)\"]")
+        } catch {
+            return nil
+        }
+        
+        let day = Day()// the resulting  day object
         if let val = nameNode?.stringValue() {
             if let v = val.rangeOfString(", ") {
                 let trimmed = val.substringFromIndex(v.startIndex)
@@ -117,25 +147,28 @@ public class Mealplan: AnyObject {
             return nil
         }
         
-        let tables = dayElem!.elementsForName("table")
-        if tables == nil || tables.count == 0 {
+        if let tables = dayElem?.elementsForName("table") {
+            for table in tables {
+                day.menus += parseMenuTable(table as! GDataXMLElement)
+            }
+        } else {
             // Find a message, probably mensa closed
-            let node = dayElem!.firstNodeForXPath("./div[@id=\"note\"]", error: &err)
-            if let val = node.stringValue() {
+            let node: GDataXMLNode?
+            do {
+                node = try dayElem!.firstNodeForXPath("./div[@id=\"note\"]")
+            } catch {
+                node = nil
+            }
+            if let val = node?.stringValue() {
                 day.note = val.stringByTrimmingCharactersInSet(Mealplan.trimChars)
             }
             return day
-        } else {
-            for table in tables {
-                let menus = parseTable(table as! GDataXMLElement)
-                day.menus += menus
-            }
         }
         
         return day
     }
     
-    private func parseTable(table : GDataXMLElement) -> [Menu] {
+    private func parseMenuTable(table : GDataXMLElement) -> [Menu] {
         let tbody = table.elementsForName("tbody")
         if tbody == nil || tbody.count == 0 {return []}
         let trs = tbody[0].elementsForName("tr")
@@ -181,7 +214,7 @@ public class Mealplan: AnyObject {
     If weekday is 5 or 6 (saturday or sunday) it will skip to monday.
     Similary if today is a saturday / sunday and weekday is a day during the week, we skip to the next week
     
-    :param:  weekday Should be the day of the week, 0-5 or 8-13
+    - parameter  weekday: Should be the day of the week, 0-5 or 8-13
     */
     public func dayForIndex(weekday : Int) -> Day? {
         if Globals.isWeekend() && weekday < 5 {
@@ -190,7 +223,7 @@ public class Mealplan: AnyObject {
         
         // Try to produce a date object without time
         let cal = NSCalendar.currentCalendar()
-        let flags : NSCalendarUnit = .CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay
+        let flags : NSCalendarUnit = [.Year, .Month, .Day]
         let todayComps = cal.components(flags, fromDate: NSDate())
         
         // Get a date object for today without time

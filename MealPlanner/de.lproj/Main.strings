@@ -1,0 +1,18 @@
+
+/* Class = "UITableViewController"; title = "Mensa Selection"; ObjectID = "093-HX-tGk"; */
+"093-HX-tGk.title" = "Mensa-Wahl";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "FZq-Uu-CQy"; */
+"FZq-Uu-CQy.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Mensa Selection"; ObjectID = "LTB-Dd-xr5"; */
+"LTB-Dd-xr5.title" = "Mensa-Wahl";
+
+/* Class = "UILabel"; text = "Type of this menu item"; ObjectID = "VrO-DA-A1g"; */
+"VrO-DA-A1g.text" = "Typ dieses Menüs";
+
+/* Class = "UILabel"; text = "Menu Title and description"; ObjectID = "XrH-df-Efb"; */
+"XrH-df-Efb.text" = "Menu Titel und Beschreibung";
+
+/* Class = "UILabel"; text = "3,50€"; ObjectID = "ZzM-3W-Rdb"; */
+"ZzM-3W-Rdb.text" = "3,50€";

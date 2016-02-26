@@ -14,7 +14,7 @@ class MealsTableController: UITableViewController {
         didSet {
             self.tableView.backgroundView = nil
             
-            updateEmptyIndicator()
+            updateLoadingIndicator()
             if self.isViewLoaded() {
                 self.tableView.reloadData()
             }
@@ -31,7 +31,7 @@ class MealsTableController: UITableViewController {
         
         self.tableView.allowsSelection = false;
         self.tableView.separatorStyle = .None
-        updateEmptyIndicator()
+        updateLoadingIndicator()
     }
 
     // MARK: UITableViewDelegate
@@ -82,7 +82,7 @@ class MealsTableController: UITableViewController {
     }
     
     
-    func updateEmptyIndicator() {
+    func updateLoadingIndicator() {
         if self.day == nil {
             let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
             self.tableView.backgroundView = indicator
