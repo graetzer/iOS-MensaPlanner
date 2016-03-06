@@ -14,7 +14,6 @@
 		F44CEBAC1C805C360076F3E9 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44CEBAB1C805C360076F3E9 /* ClockKit.framework */; };
 		F44CEBAD1C805C6A0076F3E9 /* CompliationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44CEBA91C805BEB0076F3E9 /* CompliationController.swift */; };
 		F44CEBB11C805FD20076F3E9 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44CEBB01C805FD20076F3E9 /* WatchKit.framework */; };
-		F44CEBC21C807C2B0076F3E9 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44CEBB51C807C090076F3E9 /* ExtensionDelegate.swift */; };
 		F473CA321B206F5400BCA0CC /* SGTabbedPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F473CA311B206F5400BCA0CC /* SGTabbedPager.swift */; };
 		F473CA361B2119DD00BCA0CC /* MensaSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F473CA351B2119DD00BCA0CC /* MensaSelectionController.swift */; };
 		F496F65A1B178EC400C3ADAC /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F496F6591B178EC400C3ADAC /* GDataXMLNode.m */; };
@@ -88,7 +87,6 @@
 		F44CEBA91C805BEB0076F3E9 /* CompliationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompliationController.swift; sourceTree = "<group>"; };
 		F44CEBAB1C805C360076F3E9 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.1.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		F44CEBB01C805FD20076F3E9 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.1.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
-		F44CEBB51C807C090076F3E9 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		F473CA1D1B206F1000BCA0CC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F473CA1E1B206F1000BCA0CC /* SGAnnotatedPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAnnotatedPagerController.h; sourceTree = "<group>"; };
 		F473CA1F1B206F1000BCA0CC /* SGAnnotatedPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAnnotatedPagerController.m; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 		F496F6691B179C3900C3ADAC /* MealPlanner WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				F44CEBB51C807C090076F3E9 /* ExtensionDelegate.swift */,
 				F496F66C1B179C3900C3ADAC /* MensaTableController.swift */,
 				F496F68A1B179D1C00C3ADAC /* MensaInterfaceController.swift */,
 				F496F66E1B179C3900C3ADAC /* GlanceController.swift */,
@@ -409,7 +406,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F44CEBC21C807C2B0076F3E9 /* ExtensionDelegate.swift in Sources */,
 				F44CEBAD1C805C6A0076F3E9 /* CompliationController.swift in Sources */,
 				F496F68C1B17A1BC00C3ADAC /* Globals.swift in Sources */,
 				F496F66D1B179C3900C3ADAC /* MensaTableController.swift in Sources */,

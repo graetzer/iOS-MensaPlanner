@@ -11,6 +11,11 @@ import ClockKit
 
 @objc
 class CompliationController: NSObject, CLKComplicationDataSource {
+    private let dateFormatter = NSDateFormatter()
+    
+    override init() {
+        dateFormatter.dateFormat = "ccc"
+    }
     
     func getSupportedTimeTravelDirectionsForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationTimeTravelDirections) -> Void) {
         handler([.Backward, .Forward])
@@ -130,8 +135,7 @@ class CompliationController: NSObject, CLKComplicationDataSource {
     }
     
     private func createTemplate(complication : CLKComplication, mensa : Mensa, day : Mealplan.Day) -> CLKComplicationTemplate? {
-        var long = ""
-        var short : String?
+        var long : String = ""
         if let note = day.note {
             long = note
         } else {
@@ -141,6 +145,7 @@ class CompliationController: NSObject, CLKComplicationDataSource {
             for menu in day.menus {
                 if menu.price == 2.60 {
                     sel = menu
+
                     break
                 }
             }
@@ -148,26 +153,31 @@ class CompliationController: NSObject, CLKComplicationDataSource {
                 long = title
             }
         }
-        short = long.componentsSeparatedByString(" ").first
-        let provider = CLKSimpleTextProvider(text: long, shortText: short)
         
-        // Create the template and timeline entry.
-        if complication.family == .ModularSmall {
-            let textTemplate = CLKComplicationTemplateModularSmallSimpleText()
-            textTemplate.textProvider = provider
-            return textTemplate
-        } else if complication.family == .ModularLarge {
-            let textTemplate = CLKComplicationTemplateModularLargeTallBody()
-            textTemplate.headerTextProvider = CLKSimpleTextProvider(text: mensa.name)
-            textTemplate.bodyTextProvider = provider
+        let components = long.componentsSeparatedByString(" ")
+        var short = components.first
+        if components.count >= 2 {
+            long = "\(components[0]) \(components[1])"
+            if components[1].characters.count > components[0].characters.count {
+                short = components[1]
+            }
+        }
+        
+        let wd = dateFormatter.stringFromDate(day.date)
+        // Create the template, depending on the format with the weekday
+        if complication.family == .ModularLarge {
+            let name = mensa.name.stringByReplacingOccurrencesOfString("Mensa ", withString: "")
+            let textTemplate = CLKComplicationTemplateModularLargeStandardBody()
+            textTemplate.headerTextProvider = CLKSimpleTextProvider(text: name)
+            textTemplate.body1TextProvider = CLKSimpleTextProvider(text: "\(wd): \(long)", shortText: short)
             return textTemplate
         } else if complication.family == .UtilitarianSmall {
             let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
-            textTemplate.textProvider = provider
+            textTemplate.textProvider = CLKSimpleTextProvider(text: long, shortText: short)
             return textTemplate
         } else if complication.family == .UtilitarianLarge {
             let textTemplate = CLKComplicationTemplateUtilitarianLargeFlat()
-            textTemplate.textProvider = provider
+            textTemplate.textProvider = CLKSimpleTextProvider(text: "\(wd): \(long)", shortText: short)
             return textTemplate
         }
         return nil
