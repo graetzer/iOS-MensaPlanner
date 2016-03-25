@@ -41,10 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         for mensa in mensas {
             Mealplan.LoadMealplan(mensa) { (mealplan, err) -> Void in
-                outstanding--
+                outstanding -= 1
                 if let plan = mealplan {
                     if !plan.isCached {
-                        newData++
+                        newData += 1
                     }
                     
                     // all done

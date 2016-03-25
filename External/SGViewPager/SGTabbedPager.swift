@@ -132,7 +132,7 @@ public class SGTabbedPager: UIViewController, UIScrollViewDelegate {
         
         if let cc = datasource?.numberOfViewControllers() {
             self.viewControllerCount = cc
-            for var i = 0; i < viewControllerCount; i++ {
+            for i in 0..<viewControllerCount {
                 let vc = datasource!.viewController(i)
                 
                 addChildViewController(vc)
@@ -178,14 +178,14 @@ public class SGTabbedPager: UIViewController, UIScrollViewDelegate {
         self.tabButtons.removeAll(keepCapacity: true)
         
         let font = UIFont(name: "HelveticaNeue-Thin", size: 20)
-        for var i = 0; i < self.viewControllerCount; i++ {
+        for i in 0..<self.viewControllerCount {
             let button = UIButton(type: .Custom)
             button.setTitle(self.datasource?.viewControllerTitle(i), forState: .Normal)
             button.setTitleColor(UIColor.blackColor(), forState: .Normal)
             button.titleLabel?.font = font
             button.titleLabel?.textAlignment = .Center
             button.sizeToFit()
-            button.addTarget(self, action: "receivedButtonTab:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(SGTabbedPager.receivedButtonTab(_:)), forControlEvents: .TouchUpInside)
             self.tabButtons.append(button)
             self.titleScrollView.addSubview(button)
         }
@@ -206,7 +206,7 @@ public class SGTabbedPager: UIViewController, UIScrollViewDelegate {
         
         var currentX : CGFloat = 0
         size = contentScrollView.frame.size
-        for var i = 0; i < self.viewControllerCount; i++ {
+        for i in 0..<self.viewControllerCount {
             let label = tabButtons[i]
             if i == 0 {
                 currentX += (size.width - label.frame.size.width)/2

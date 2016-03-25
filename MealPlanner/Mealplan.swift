@@ -103,7 +103,7 @@ public class Mealplan: AnyObject {
             }
         }
         let nextSuffix = "Naechste"// The HTML uses this API
-        for var i = 0; i < weekdays.count; i++ {
+        for i in 0..<weekdays.count {
             if let day = parseDay(parser, weekday:weekdays[i]+nextSuffix) {
                 days.append(day)
             }

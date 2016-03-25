@@ -33,7 +33,7 @@ class MensaInterfaceController: WKInterfaceController {
             let weekday = Globals.currentWorkdayIndex()
             if let menus = mealplan?.dayForIndex(weekday)?.menus {
                 self.table.setNumberOfRows(menus.count, withRowType: "MenusRowType")
-                for var i = 0; i < menus.count; ++i {
+                for i in 0..<menus.count {
                     let row = self.table.rowControllerAtIndex(i) as! MenusRowType
                     row.menuLabel.setText(menus[i].title)
                     row.categoryLabel.setText(menus[i].category)

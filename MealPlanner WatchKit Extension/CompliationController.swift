@@ -118,17 +118,19 @@ class CompliationController: NSObject, CLKComplicationDataSource {
     
     func getNextRequestedUpdateDateWithHandler(handler: (NSDate?) -> Void) {
         // Update every week
-        handler(NSDate(timeIntervalSinceNow: 60 * 60 * 24 * 7.0 / 2.0))
+        handler(NSDate(timeIntervalSinceNow: 60.0 * 60.0 * 24.0 * 7.0 / 2.0))
     }
     
     func requestedUpdateDidBegin() {
         let mensa = Globals.selectedMensa
         Mealplan.LoadMealplan(mensa) {(mealplan, error) in
             // Upload as soon as the cache is gone
-            if mealplan != nil && mealplan!.isCached == false {
+            if mealplan != nil {
                 let complicationServer = CLKComplicationServer.sharedInstance()
-                for complication in complicationServer.activeComplications {
-                    complicationServer.reloadTimelineForComplication(complication)
+                if let complications = complicationServer.activeComplications {
+                    for complication in complications {
+                        complicationServer.reloadTimelineForComplication(complication)
+                    }
                 }
             }
         }

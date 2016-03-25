@@ -15,9 +15,9 @@ class MensaTableController: WKInterfaceController {
 
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        
         table.setNumberOfRows(Globals.mensas.count, withRowType: "MensaRowType")
-        for var i = 0; i < Globals.mensas.count; ++i {
+        
+        for i in 0..<Globals.mensas.count {
             let row = table.rowControllerAtIndex(i) as! MensaRowType
             let mensa = Globals.mensas[i]
             

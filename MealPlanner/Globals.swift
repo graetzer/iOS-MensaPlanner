@@ -45,10 +45,12 @@ public struct Globals {
         // per default non are disabled
         if let disabled:NSArray = disabledMensaNames() {
             for name in disabled {
-                for var i = 0; i < array.count; i++ {
+                var i = 0// can't use for loop since you can't modify the array
+                while i < array.count {
                     if array[i].name == name as! String {
                         array.removeAtIndex(i)
-                        i--
+                    } else {
+                        i += 1
                     }
                 }
             }

@@ -24,7 +24,7 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource, SGTabbedPage
         if let bar = self.navigationController?.navigationBar {
             weekdayControl.frame = CGRectInset(bar.bounds, 0, 5)
         }
-        weekdayControl.addTarget(self, action: "changedDaySelection:", forControlEvents: .ValueChanged)
+        weekdayControl.addTarget(self, action: #selector(MensasPagerController.changedDaySelection(_:)), forControlEvents: .ValueChanged)
         self.navigationItem.titleView = weekdayControl
         
         // Let's try to make today the current day
