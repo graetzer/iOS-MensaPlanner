@@ -217,11 +217,11 @@ public class Mealplan: AnyObject {
     - parameter  weekday: Should be the day of the week, 0-5 or 8-13
     */
     public func dayForIndex(weekday : Int) -> Day? {
-        if Globals.isWeekend() && weekday < 5 {
+        if weekday < 5 && Globals.isWeekend() {
             return dayForIndex(weekday + 7) // Skip to next week
         }
         
-        // Try to produce a date object without time
+        // Try to produce a date object with time 0:00
         let cal = NSCalendar.currentCalendar()
         let flags : NSCalendarUnit = [.Year, .Month, .Day]
         let todayComps = cal.components(flags, fromDate: NSDate())
@@ -230,11 +230,11 @@ public class Mealplan: AnyObject {
         if let todayDate = cal.dateFromComponents(todayComps) {
             // Difference in days
             let diff = NSTimeInterval(weekday - Globals.currentWeekday())
-            let lastDay = NSDate(timeInterval: diff * 24 * 60 * 60, sinceDate: todayDate)
+            let weekdayDate = NSDate(timeInterval: diff * 24 * 60 * 60, sinceDate: todayDate)
 
             // Select best day
             for day in self.days {
-                if lastDay.isEqualToDate(day.date) {
+                if cal.isDate(day.date, inSameDayAsDate: weekdayDate) {
                     return day
                 }
             }
