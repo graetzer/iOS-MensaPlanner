@@ -94,11 +94,11 @@ class MealsTableController: UITableViewController {
     
     func showNoDataFound() {
         let label = UILabel(frame: CGRectZero)
-        if let note = self.day?.note {
-            label.text = note
-        } else {
+//        if let note = self.day?.note {
+//            label.text = note
+//        } else {
             label.text = NSLocalizedString("No Data Found", comment: "empty mealplan message")
-        }
+//        }
         label.textAlignment = .Center
         self.tableView.backgroundView = label
     }

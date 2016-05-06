@@ -80,7 +80,7 @@ _EXTERN const char* kGDataXMLXPathDefaultNamespacePrefix _INITIALIZE_AS("_def_ns
 @class NSArray, NSDictionary, NSError, NSString, NSURL;
 @class GDataXMLElement, GDataXMLDocument;
 
-enum {
+typedef NS_ENUM(NSUInteger, GDataXMLNodeKind) {
     GDataXMLInvalidKind = 0,
     GDataXMLDocumentKind,
     GDataXMLElementKind,
@@ -95,8 +95,6 @@ enum {
     GDataXMLElementDeclarationKind,
     GDataXMLNotationDeclarationKind
 };
-
-typedef NSUInteger GDataXMLNodeKind;
 
 @interface GDataXMLNode : NSObject <NSCopying> {
 @protected
@@ -117,7 +115,7 @@ typedef NSUInteger GDataXMLNodeKind;
     
     // cached values
     NSString *cachedName_;
-    NSArray *cachedChildren_;
+    NSArray<GDataXMLNode*> *cachedChildren_;
     NSArray *cachedAttributes_;
 }
 
@@ -136,7 +134,7 @@ typedef NSUInteger GDataXMLNodeKind;
 - (void)setStringValue:(NSString *)str;
 
 - (NSUInteger)childCount;
-- (NSArray *)children;
+- (NSArray<GDataXMLNode*>*)children;
 - (GDataXMLNode *)childAtIndex:(unsigned)index;
 
 - (NSString *)localName;

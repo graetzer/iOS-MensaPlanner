@@ -42,11 +42,11 @@ class  GlanceController: WKInterfaceController {
         let weekday = Globals.currentWorkdayIndex()
         if let day = mealplan?.dayForIndex(weekday) {
             
-            if let note = day.note {
-                self.menuLabel.setText(note)
-                self.categoryLabel.setText(note)
-                self.priceLabel.setText("")
-            } else {
+//            if let note = day.note {
+//                self.menuLabel.setText(note)
+//                self.categoryLabel.setText(note)
+//                self.priceLabel.setText("")
+//            } else {
                 // Try to find todays recommendated menu
                 // TODO: Let the user choose what kind of menu he would like to see
                 var sel = day.menus.last
@@ -61,7 +61,7 @@ class  GlanceController: WKInterfaceController {
                     self.categoryLabel.setText(sel!.category)
                     self.priceLabel.setText(numberFormatter.stringFromNumber(sel!.price))
                 }
-            }
+//            }
         }
     }
 }

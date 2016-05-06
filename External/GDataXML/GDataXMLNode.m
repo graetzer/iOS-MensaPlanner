@@ -656,13 +656,13 @@ static void RegisterNamespaces(NSDictionary *namespaces, xmlXPathContextPtr xpat
     return 0;
 }
 
-- (NSArray *)children {
+- (NSArray<GDataXMLNode*>*)children {
     
     if (cachedChildren_ != nil) {
         return cachedChildren_;
     }
     
-    NSMutableArray *array = nil;
+    NSMutableArray<GDataXMLNode*> *array = nil;
     
     if (xmlNode_ != NULL) {
         

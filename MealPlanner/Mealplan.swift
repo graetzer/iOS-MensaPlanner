@@ -17,7 +17,7 @@ public class Mealplan: AnyObject {
         var menus = [Menu]()
         var date : NSDate!
         /// Should contain a message if the day has no menus e.g. the mensa is closed
-        var note : String? = nil
+//        var note : String? = nil
     }
     /// Menu with price, title, category
     public class Menu: AnyObject {
@@ -151,19 +151,20 @@ public class Mealplan: AnyObject {
             for table in tables {
                 day.menus += parseMenuTable(table as! GDataXMLElement)
             }
-        } else {
-            // Find a message, probably mensa closed
-            let node: GDataXMLNode?
-            do {
-                node = try dayElem!.firstNodeForXPath("./div[@id=\"note\"]")
-            } catch {
-                node = nil
-            }
-            if let val = node?.stringValue() {
-                day.note = val.stringByTrimmingCharactersInSet(Mealplan.trimChars)
-            }
-            return day
         }
+//        else {
+//            // Find a message, probably mensa closed
+//            let node: GDataXMLNode?
+//            do {
+//                node = try dayElem!.firstNodeForXPath("./div[@id=\"note\"]")
+//            } catch {
+//                node = nil
+//            }
+//            if let val = node?.stringValue() {
+//                day.note = val.stringByTrimmingCharactersInSet(Mealplan.trimChars)
+//            }
+//            return day
+//        }
         
         return day
     }
@@ -176,37 +177,54 @@ public class Mealplan: AnyObject {
         
         var menus = [Menu]()
         for nTr in trs {
-            let tr = nTr as! GDataXMLElement
-            
-            // Parse menu entries
-            let menu = Menu()
-            let tds = tr.elementsForName("td")
-            if tds == nil {continue}
-            for nTd in tds {
-                let td = nTd as! GDataXMLElement
-                
-                let type = td.attributeForName("class")?.stringValue()
-                if type == nil {continue}
-                switch(type!) {
-                case "category":
-                    menu.category = td.stringValue()?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
-                    break
-                case "menue", "extra":
-                    menu.title = td.stringValue()?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
-                    break
-                case "price":
-                    var contents = td.stringValue()
-                    contents = contents?.stringByReplacingOccurrencesOfString("€", withString: "")
-                    contents = contents?.stringByReplacingOccurrencesOfString(",", withString: ".")
-                    contents = contents?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
-                    menu.price = (contents as NSString).doubleValue
-                    break
-                default:break
+            let tr = nTr as? GDataXMLElement
+            if let tds = tr?.children() {
+                for td in tds where td.kind() == .XMLElementKind && td.localName() == "td" {
+                    let items = (td as? GDataXMLElement)?.children()
+                    if items == nil {continue}
+
+                    // Parse menu entries
+                    let menu = Menu()
+                    for node in items! where node.kind() == .XMLElementKind {
+                        let el = node as! GDataXMLElement
+                        if let type = el.attributeForName("class")?.stringValue() {
+                            if type.containsString("menue-category") {
+                                menu.category = self.textFromElement(el)
+                            } else if type.containsString("menue-desc") {
+                                menu.title = self.textFromElement(el)
+                            } else if type.containsString("menue-price") {
+                                var contents = el.stringValue()
+                                contents = contents?.stringByReplacingOccurrencesOfString("€", withString: "")
+                                contents = contents?.stringByReplacingOccurrencesOfString(",", withString: ".")
+                                contents = contents?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
+                                if let s = contents as NSString? {
+                                    menu.price = s.doubleValue
+                                }
+                            }
+                        }
+                    }
+                    menus.append(menu)
                 }
             }
-            menus.append(menu)
         }
         return menus
+    }
+    
+    /// Get the text from this element but ignore meaningless annotations in <sup> tags
+    private func textFromElement(el : GDataXMLElement) -> String? {
+        var buffer : String = ""
+        for node in el.children() {
+            if node.kind() == .XMLTextKind {
+                buffer += node.stringValue() + " "
+            }/* else if node.kind() == .XMLElementKind {
+                var text = node.stringValue()
+                if text
+            }*/
+        }
+        // remove unnecessary blanks and weird formatting leftovers
+        buffer = buffer.stringByReplacingOccurrencesOfString("  ", withString: "")
+        buffer = buffer.stringByReplacingOccurrencesOfString(" , ", withString: ", ")
+        return buffer.stringByTrimmingCharactersInSet(Mealplan.trimChars)
     }
     
     /** 

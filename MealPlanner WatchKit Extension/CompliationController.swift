@@ -109,7 +109,10 @@ class CompliationController: NSObject, CLKComplicationDataSource {
             var day = mealplan?.dayForIndex(weekday)
             if day == nil {
                 day = Mealplan.Day()
-                day!.note = NSLocalizedString("Meal of the Day", comment: "Menu placeholder")
+                let menu = Mealplan.Menu()
+                menu.title = NSLocalizedString("Meal of the Day", comment: "Menu placeholder")
+                day!.menus.append(menu)
+//                day!.note = NSLocalizedString("Meal of the Day", comment: "Menu placeholder")
             }
             let template = self.createTemplate(complication, mensa: mensa, day: day!)
             handler(template)
@@ -138,9 +141,9 @@ class CompliationController: NSObject, CLKComplicationDataSource {
     
     private func createTemplate(complication : CLKComplication, mensa : Mensa, day : Mealplan.Day) -> CLKComplicationTemplate? {
         var long : String = ""
-        if let note = day.note {
-            long = note
-        } else {
+//        if let note = day.note {
+//            long = note
+//        } else {
             // Try to find todays recommendated menu
             // TODO: Let the user choose what kind of menu he would like to see
             var sel : Mealplan.Menu? = day.menus.last
@@ -154,12 +157,18 @@ class CompliationController: NSObject, CLKComplicationDataSource {
             if let title = sel?.title {
                 long = title
             }
-        }
+//        }
         
+        // Some ugly shortening of the desciptions
         let components = long.componentsSeparatedByString(" ")
         var short = components.first
         if components.count >= 2 {
-            long = "\(components[0]) \(components[1])"
+            if components.count >= 3
+                && components[2].characters.count > components[1].characters.count {
+                long = "\(components[0]) \(components[2])"// skip vom "XXX vom YYY"
+            } else {
+                long = "\(components[0]) \(components[1])"
+            }
             if components[1].characters.count > components[0].characters.count {
                 short = components[1]
             }
