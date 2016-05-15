@@ -107,7 +107,6 @@
 		F496F67E1B179C3900C3ADAC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F496F68A1B179D1C00C3ADAC /* MensaInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MensaInterfaceController.swift; sourceTree = "<group>"; };
 		F4AD24C91B6E731B007B62AA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4B010751B16A3E500641B5D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F4D94D8D1B0692F50035EE6A /* MensaPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MensaPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4D94D921B0692F60035EE6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4D94D941B0692F60035EE6A /* MensasPagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MensasPagerController.swift; sourceTree = "<group>"; };
@@ -213,7 +212,6 @@
 				F44CEBA31C8046FD0076F3E9 /* libxml2.2.tbd */,
 				F468D10B1CA5A65D00EBC57D /* ClockKit.framework */,
 				F468D1091CA5A65100EBC57D /* WatchKit.framework */,
-				F4B010751B16A3E500641B5D /* CoreLocation.framework */,
 				F4D94DB21B0695720035EE6A /* External */,
 				F4D94D8F1B0692F50035EE6A /* MealPlanner */,
 				F496F6691B179C3900C3ADAC /* MealPlanner WatchKit Extension */,

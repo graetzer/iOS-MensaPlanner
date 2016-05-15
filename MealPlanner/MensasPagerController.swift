@@ -18,6 +18,7 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource, SGTabbedPage
     override func viewDidLoad() {
         super.viewDidLoad()
         self.datasource = self
+        self.delegate = self
         
         weekdayControl = UISegmentedControl(items: ["Mo", "Di", "Mi", "Do", "Fr"])
         weekdayControl.tintColor = UIColor.whiteColor()
