@@ -48,7 +48,7 @@ public struct Globals {
                 var i = 0// can't use for loop since you can't modify the array
                 while i < array.count {
                     if array[i].name == name as! String {
-                        array.removeAtIndex(i)
+                        array.remove(at:i)
                     } else {
                         i += 1
                     }
@@ -59,37 +59,40 @@ public struct Globals {
     }
     
     static func disabledMensaNames() -> NSArray? {
-        let caches = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] 
-        let path = (caches as NSString).stringByAppendingPathComponent("_disabled.plist")
+      let caches = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+      let path = (caches as NSString).appendingPathComponent("_disabled.plist")
         return NSArray(contentsOfFile: path)
     }
     
     static func setDisabledMensas(names :NSArray) {
-        let caches = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] 
-        let path = (caches as NSString).stringByAppendingPathComponent("_disabled.plist")
-        names.writeToFile(path, atomically: false)
+      let caches = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+      let path = (caches as NSString).appendingPathComponent("_disabled.plist")
+      names.write(toFile: path, atomically: false)
     }
     
     private static let keySelectedMensaIndex = "SelectedMensaIndex"
     static var selectedMensa : Mensa {
         get {
-            let i = NSUserDefaults.standardUserDefaults().integerForKey(keySelectedMensaIndex)
+          let i = UserDefaults.standard.integer(forKey: keySelectedMensaIndex)
             return mensas[min(max(i, 0), mensas.count)]
         }
         
         set {
-            if let i = Globals.mensas.indexOf(newValue) {
-                NSUserDefaults.standardUserDefaults().setInteger(i, forKey: keySelectedMensaIndex)
-            }
+          if let i = Globals.mensas.index(of: newValue) {
+            UserDefaults.standard.set(i, forKey: keySelectedMensaIndex)
+          }
         }
     }
     
     /// Current weekday returns 0-6 for each weekday starting with monday
     static func currentWeekday() -> Int {
-        let cal = NSCalendar.currentCalendar()
-        cal.firstWeekday = 2 // Monday, NSCalendar starts with saturdays
-        return cal.ordinalityOfUnit(.Weekday,
-            inUnit:.WeekOfMonth, forDate: NSDate()) - 1
+      var cal = Calendar.current
+      cal.firstWeekday = 2 // Monday, NSCalendar starts with saturdays
+      if let k = cal.ordinality(of: .weekday, in: .weekOfMonth, for: Date()) {
+        return k - 1
+      }
+      return 0
+      //return cal.ordinalityOfUnit(.Weekday, inUnit:.WeekOfMonth, forDate: NSDate()) - 1
     }
     
     static func isWeekend() -> Bool {
@@ -127,36 +130,36 @@ extension UIColor {
         var alpha: CGFloat = 1.0
         
         if rgba.hasPrefix("#") {
-            let index   = rgba.startIndex.advancedBy(1)
-            let hex     = rgba.substringFromIndex(index)
-            let scanner = NSScanner(string: hex)
-            var hexValue: CUnsignedLongLong = 0
-            if scanner.scanHexLongLong(&hexValue) {
-                switch (hex.characters.count) {
-                case 3:
-                    red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
-                    green = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0
-                    blue  = CGFloat(hexValue & 0x00F)              / 15.0
-                case 4:
-                    red   = CGFloat((hexValue & 0xF000) >> 12)     / 15.0
-                    green = CGFloat((hexValue & 0x0F00) >> 8)      / 15.0
-                    blue  = CGFloat((hexValue & 0x00F0) >> 4)      / 15.0
-                    alpha = CGFloat(hexValue & 0x000F)             / 15.0
-                case 6:
-                    red   = CGFloat((hexValue & 0xFF0000) >> 16)   / 255.0
-                    green = CGFloat((hexValue & 0x00FF00) >> 8)    / 255.0
-                    blue  = CGFloat(hexValue & 0x0000FF)           / 255.0
-                case 8:
-                    red   = CGFloat((hexValue & 0xFF000000) >> 24) / 255.0
-                    green = CGFloat((hexValue & 0x00FF0000) >> 16) / 255.0
-                    blue  = CGFloat((hexValue & 0x0000FF00) >> 8)  / 255.0
-                    alpha = CGFloat(hexValue & 0x000000FF)         / 255.0
-                default:
-                    print("Invalid RGB string, number of characters after '#' should be either 3, 4, 6 or 8", terminator: "")
-                }
-            } else {
-                print("Scan hex error")
+          let index   = rgba.index(rgba.startIndex, offsetBy: 1)
+          let hex     = String(rgba[index...])// .substring(from: index)
+          let scanner = Scanner(string: hex)
+          var hexValue: CUnsignedLongLong = 0
+          if scanner.scanHexInt64(&hexValue) {
+            switch (hex.count) {
+            case 3:
+              red   = CGFloat((hexValue & 0xF00) >> 8)       / 15.0
+              green = CGFloat((hexValue & 0x0F0) >> 4)       / 15.0
+              blue  = CGFloat(hexValue & 0x00F)              / 15.0
+            case 4:
+              red   = CGFloat((hexValue & 0xF000) >> 12)     / 15.0
+              green = CGFloat((hexValue & 0x0F00) >> 8)      / 15.0
+              blue  = CGFloat((hexValue & 0x00F0) >> 4)      / 15.0
+              alpha = CGFloat(hexValue & 0x000F)             / 15.0
+            case 6:
+              red   = CGFloat((hexValue & 0xFF0000) >> 16)   / 255.0
+              green = CGFloat((hexValue & 0x00FF00) >> 8)    / 255.0
+              blue  = CGFloat(hexValue & 0x0000FF)           / 255.0
+            case 8:
+              red   = CGFloat((hexValue & 0xFF000000) >> 24) / 255.0
+              green = CGFloat((hexValue & 0x00FF0000) >> 16) / 255.0
+              blue  = CGFloat((hexValue & 0x0000FF00) >> 8)  / 255.0
+              alpha = CGFloat(hexValue & 0x000000FF)         / 255.0
+            default:
+              print("Invalid RGB string, number of characters after '#' should be either 3, 4, 6 or 8", terminator: "")
             }
+          } else {
+            print("Scan hex error")
+          }
         } else {
             print("Invalid RGB string, missing '#' as prefix", terminator: "")
         }

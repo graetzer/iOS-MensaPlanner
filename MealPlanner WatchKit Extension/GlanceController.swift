@@ -24,23 +24,23 @@ class  GlanceController: WKInterfaceController {
         
         let mensa = Globals.selectedMensa
         // Handoff to the main app
-        if let url = NSURL(string: mensa.url) {
+        if let url = URL(string: mensa.url) {
             self.updateUserActivity(GlanceController.userActivityType, userInfo: nil, webpageURL: url)
         }
         
         mensaLabel.setText(mensa.name)
         // Ideally this is cached and just loaded from the phone or something
-        Mealplan.LoadMealplan(mensa) {(mealplan, error) in
-            self.updateUI(mealplan)
+      Mealplan.LoadMealplan(mensa: mensa) {(mealplan, error) in
+        self.updateUI(mealplan: mealplan)
         }
     }
     
     private func updateUI(mealplan : Mealplan?) {
-        let numberFormatter = NSNumberFormatter()
-        numberFormatter.numberStyle = .CurrencyStyle
-        numberFormatter.locale = NSLocale(localeIdentifier: "de_DE")
+      let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+      numberFormatter.locale = Locale(identifier: "de_DE")
         let weekday = Globals.currentWorkdayIndex()
-        if let day = mealplan?.dayForIndex(weekday) {
+      if let day = mealplan?.dayForIndex(weekday: weekday) {
             
 //            if let note = day.note {
 //                self.menuLabel.setText(note)
@@ -59,7 +59,7 @@ class  GlanceController: WKInterfaceController {
                 if sel != nil {
                     self.menuLabel.setText(sel!.title)
                     self.categoryLabel.setText(sel!.category)
-                    self.priceLabel.setText(numberFormatter.stringFromNumber(sel!.price))
+                  self.priceLabel.setText(numberFormatter.string(from: NSNumber(value:sel!.price)))
                 }
 //            }
         }

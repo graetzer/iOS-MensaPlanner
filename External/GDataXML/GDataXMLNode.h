@@ -80,20 +80,20 @@ _EXTERN const char* kGDataXMLXPathDefaultNamespacePrefix _INITIALIZE_AS("_def_ns
 @class NSArray, NSDictionary, NSError, NSString, NSURL;
 @class GDataXMLElement, GDataXMLDocument;
 
-typedef NS_ENUM(NSUInteger, GDataXMLNodeKind) {
-    GDataXMLInvalidKind = 0,
-    GDataXMLDocumentKind,
-    GDataXMLElementKind,
-    GDataXMLAttributeKind,
-    GDataXMLNamespaceKind,
-    GDataXMLProcessingInstructionKind,
-    GDataXMLCommentKind,
-    GDataXMLTextKind,
-    GDataXMLDTDKind,
-    GDataXMLEntityDeclarationKind,
-    GDataXMLAttributeDeclarationKind,
-    GDataXMLElementDeclarationKind,
-    GDataXMLNotationDeclarationKind
+typedef NS_ENUM(NSInteger, GDataXMLNodeKind) {
+  GDataXMLInvalidKind = 0,
+  GDataXMLDocumentKind,
+  GDataXMLElementKind,
+  GDataXMLAttributeKind,
+  GDataXMLNamespaceKind,
+  GDataXMLProcessingInstructionKind,
+  GDataXMLCommentKind,
+  GDataXMLTextKind,
+  GDataXMLDTDKind,
+  GDataXMLEntityDeclarationKind,
+  GDataXMLAttributeDeclarationKind,
+  GDataXMLElementDeclarationKind,
+  GDataXMLNotationDeclarationKind
 };
 
 @interface GDataXMLNode : NSObject <NSCopying> {
@@ -151,7 +151,9 @@ typedef NS_ENUM(NSUInteger, GDataXMLNodeKind) {
 
 // This is the preferred entry point for nodesForXPath.  This takes an explicit
 // namespace dictionary (keys are prefixes, values are URIs).
-- (NSArray *)nodesForXPath:(NSString *)xpath namespaces:(NSDictionary *)namespaces error:(NSError **)error;
+- (NSArray<GDataXMLNode*> *)nodesForXPath:(NSString *)xpath
+                               namespaces:(NSDictionary *)namespaces
+                                    error:(NSError **)error;
 
 - (GDataXMLNode *)firstNodeForXPath:(NSString *)xpath namespaces:(NSDictionary *)namespaces error:(NSError **)error;
 
@@ -176,7 +178,7 @@ typedef NS_ENUM(NSUInteger, GDataXMLNodeKind) {
 - (id)initWithXMLString:(NSString *)str error:(NSError **)error;
 - (id)initWithHTMLString:(NSString *)str error:(NSError **)error;
 
-- (NSArray *)namespaces;
+- (NSArray<GDataXMLNode*> *)namespaces;
 - (void)setNamespaces:(NSArray *)namespaces;
 - (void)addNamespace:(GDataXMLNode *)aNamespace;
 
@@ -184,10 +186,10 @@ typedef NS_ENUM(NSUInteger, GDataXMLNodeKind) {
 - (void)addChild:(GDataXMLNode *)child;
 - (void)removeChild:(GDataXMLNode *)child;
 
-- (NSArray *)elementsForName:(NSString *)name;
-- (NSArray *)elementsForLocalName:(NSString *)localName URI:(NSString *)URI;
+- (NSArray<GDataXMLElement*> *)elementsForName:(NSString *)name;
+- (NSArray<GDataXMLElement*> *)elementsForLocalName:(NSString *)localName URI:(NSString *)URI;
 
-- (NSArray *)attributes;
+- (NSArray<GDataXMLNode*> *)attributes;
 - (GDataXMLNode *)attributeForName:(NSString *)name;
 - (GDataXMLNode *)attributeForLocalName:(NSString *)name URI:(NSString *)attributeURI;
 - (void)addAttribute:(GDataXMLNode *)attribute;
@@ -226,7 +228,9 @@ typedef NS_ENUM(NSUInteger, GDataXMLNodeKind) {
 
 // This is the preferred entry point for nodesForXPath.  This takes an explicit
 // namespace dictionary (keys are prefixes, values are URIs).
-- (NSArray *)nodesForXPath:(NSString *)xpath namespaces:(NSDictionary *)namespaces error:(NSError **)error;
+- (NSArray<GDataXMLNode*> *)nodesForXPath:(NSString *)xpath
+                               namespaces:(NSDictionary *)namespaces
+                                    error:(NSError **)error;
 
 // Convenience method returns first element with speciifed xpath or nil
 - (GDataXMLNode *)firstNodeForXPath:(NSString *)xpath namespaces:(NSDictionary *)namespaces error:(NSError **)error;
@@ -235,7 +239,7 @@ typedef NS_ENUM(NSUInteger, GDataXMLNodeKind) {
 // document's root node.  _def_ns may be used as a prefix for the default
 // namespace, though there's no guarantee that the default namespace will
 // be consistenly the same namespace in server responses.
-- (NSArray *)nodesForXPath:(NSString *)xpath error:(NSError **)error;
+- (NSArray<GDataXMLNode*> *)nodesForXPath:(NSString *)xpath error:(NSError **)error;
 
 - (GDataXMLNode *)firstNodeForXPath:(NSString *)xpath error:(NSError **)error;
 

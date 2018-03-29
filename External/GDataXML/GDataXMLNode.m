@@ -656,13 +656,13 @@ static void RegisterNamespaces(NSDictionary *namespaces, xmlXPathContextPtr xpat
     return 0;
 }
 
-- (NSArray<GDataXMLNode*>*)children {
+- (NSArray *)children {
     
     if (cachedChildren_ != nil) {
         return cachedChildren_;
     }
     
-    NSMutableArray<GDataXMLNode*> *array = nil;
+    NSMutableArray *array = nil;
     
     if (xmlNode_ != NULL) {
         
@@ -750,11 +750,11 @@ static void RegisterNamespaces(NSDictionary *namespaces, xmlXPathContextPtr xpat
 	return [nodes objectAtIndex:0];
 }
 
-- (NSArray *)nodesForXPath:(NSString *)xpath
-                namespaces:(NSDictionary *)namespaces
-                     error:(NSError **)error {
+- (NSArray<GDataXMLNode*> *)nodesForXPath:(NSString *)xpath
+                               namespaces:(NSDictionary *)namespaces
+                                    error:(NSError **)error {
     
-    NSMutableArray *array = nil;
+    NSMutableArray<GDataXMLNode*> *array = nil;
     NSInteger errorCode = -1;
     NSDictionary *errorInfo = nil;
     
@@ -988,9 +988,9 @@ static void RegisterNamespaces(NSDictionary *namespaces, xmlXPathContextPtr xpat
     return self;
 }
 
-- (NSArray *)namespaces {
+- (NSArray<GDataXMLNode*> *)namespaces {
     
-    NSMutableArray *array = nil;
+    NSMutableArray<GDataXMLNode*> *array = nil;
     
     if (xmlNode_ != NULL && xmlNode_->nsDef != NULL) {
         
@@ -1240,13 +1240,13 @@ static void RegisterNamespaces(NSDictionary *namespaces, xmlXPathContextPtr xpat
     return array;
 }
 
-- (NSArray *)attributes {
+- (NSArray<GDataXMLNode*> *)attributes {
     
     if (cachedAttributes_ != nil) {
         return cachedAttributes_;
     }
     
-    NSMutableArray *array = nil;
+    NSMutableArray<GDataXMLNode*> *array = nil;
     
     if (xmlNode_ != NULL && xmlNode_->properties != NULL) {
         
@@ -1885,23 +1885,23 @@ const char *IANAEncodingCStringFromNSStringEncoding(NSStringEncoding encoding)
     }
 }
 
-- (NSArray *)nodesForXPath:(NSString *)xpath error:(NSError **)error {
+- (NSArray<GDataXMLNode*> *)nodesForXPath:(NSString *)xpath error:(NSError **)error {
     return [self nodesForXPath:xpath namespaces:nil error:error];
 }
 
 - (GDataXMLNode *)firstNodeForXPath:(NSString *)xpath error:(NSError **)error {
-	NSArray *nodes = [self nodesForXPath:xpath error:error];
+	NSArray<GDataXMLNode*> *nodes = [self nodesForXPath:xpath error:error];
 	if (!nodes.count) {
 		return nil;
 	}
 	return [nodes objectAtIndex:0];
 }
 
-- (NSArray *)nodesForXPath:(NSString *)xpath
-                namespaces:(NSDictionary *)namespaces
-                     error:(NSError **)error {
+- (NSArray<GDataXMLNode*> *)nodesForXPath:(NSString *)xpath
+                               namespaces:(NSDictionary *)namespaces
+                                    error:(NSError **)error {
 
-    NSMutableArray *array = nil;
+    NSMutableArray<GDataXMLNode*> *array = nil;
     NSInteger errorCode = -1;
     NSDictionary *errorInfo = nil;
 

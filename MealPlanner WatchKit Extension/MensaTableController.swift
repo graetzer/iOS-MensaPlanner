@@ -12,31 +12,32 @@ import Foundation
 
 class MensaTableController: WKInterfaceController {
     @IBOutlet weak var table: WKInterfaceTable!
-
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
-        table.setNumberOfRows(Globals.mensas.count, withRowType: "MensaRowType")
-        
-        for i in 0..<Globals.mensas.count {
-            let row = table.rowControllerAtIndex(i) as! MensaRowType
-            let mensa = Globals.mensas[i]
-            
-            let name = mensa.name.stringByReplacingOccurrencesOfString("Mensa ", withString: "")
-            row.mensaTitle.setText(name)
-        }
-    }
+  
+  // context from controller that did push or modal presentation. default does nothing
+  override func awake(withContext context: Any?) {
+    super.awake(withContext:context)
+    table.setNumberOfRows(Globals.mensas.count, withRowType: "MensaRowType")
     
-    override func contextForSegueWithIdentifier(segueIdentifier: String, inTable table: WKInterfaceTable, rowIndex: Int) -> AnyObject? {
-//        if segueIdentifier == "PushMensa" {
-            return Globals.mensas[rowIndex]
-//        }
-//        return nil
+    for i in 0..<Globals.mensas.count {
+      let row = table.rowController(at: i) as! MensaRowType
+      let mensa = Globals.mensas[i]
+      
+      let name = mensa.name.replacingOccurrences(of: "Mensa ", with: "")
+      row.mensaTitle.setText(name)
     }
-    
-    /// If opened from the glance
-    override func handleUserActivity(userInfo: [NSObject : AnyObject]?) {
-        self.pushControllerWithName("MensaInterfaceController", context: Globals.selectedMensa)
-    }
+  }
+  
+  override func contextForSegue(withIdentifier: String, in table: WKInterfaceTable, rowIndex: Int) -> Any? {
+    //        if segueIdentifier == "PushMensa" {
+    return Globals.mensas[rowIndex]
+    //        }
+    //        return nil
+  }
+  
+  /// If opened from the glance
+  override func handleUserActivity(_ userInfo: [AnyHashable : Any]?) {
+    self.pushController(withName: "MensaInterfaceController", context: Globals.selectedMensa)
+  }
 }
 
 

@@ -21,18 +21,18 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource, SGTabbedPage
         self.delegate = self
         
         weekdayControl = UISegmentedControl(items: ["Mo", "Di", "Mi", "Do", "Fr"])
-        weekdayControl.tintColor = UIColor.whiteColor()
+        weekdayControl.tintColor = UIColor.white
         if let bar = self.navigationController?.navigationBar {
-            weekdayControl.frame = CGRectInset(bar.bounds, 0, 5)
+            weekdayControl.frame = bar.bounds.insetBy(dx: 0, dy: 5)
         }
-        weekdayControl.addTarget(self, action: #selector(MensasPagerController.changedDaySelection(_:)), forControlEvents: .ValueChanged)
+      weekdayControl.addTarget(self, action: #selector(MensasPagerController.changedDaySelection(sender:)), for: .valueChanged)
         self.navigationItem.titleView = weekdayControl
         
         // Let's try to make today the current day
         self.weekdayControl.selectedSegmentIndex = Globals.currentWorkdayIndex()
     }
     
-    override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
         mensas = Globals.enabledMensas()
         super.viewWillAppear(animated)
     }
@@ -40,13 +40,13 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource, SGTabbedPage
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if let bar = self.navigationController?.navigationBar {
-            weekdayControl.frame = CGRectInset(bar.bounds, 0, 5)
+            weekdayControl.frame = bar.bounds.insetBy(dx: 0, dy: 5)
         }
     }
     
     // MARK: IBAction
     
-    func changedDaySelection(sender: UISegmentedControl) {
+  @objc func changedDaySelection(sender: UISegmentedControl) {
         self.reloadData()
     }
     
@@ -59,11 +59,11 @@ class MensasPagerController:SGTabbedPager, SGTabbedPagerDatasource, SGTabbedPage
     func viewController(page:Int) -> UIViewController {
         let mensa = mensas[page]
         let mealTable = self.storyboard?
-            .instantiateViewControllerWithIdentifier("MealsTableController") as! MealsTableController
+          .instantiateViewController(withIdentifier: "MealsTableController") as! MealsTableController
         
-        Mealplan.LoadMealplan(mensa) { (mealplan, err) -> Void in
+      Mealplan.LoadMealplan(mensa: mensa) { (mealplan, err) -> Void in
             let weekday = self.weekdayControl.selectedSegmentIndex
-            if let day = mealplan?.dayForIndex(weekday) {// Select best day
+        if let day = mealplan?.dayForIndex(weekday: weekday) {// Select best day
                 mealTable.day = day
             } else {
                 mealTable.showNoDataFound()

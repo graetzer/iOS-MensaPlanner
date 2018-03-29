@@ -8,148 +8,155 @@
 
 import Foundation
 
-public class Mealplan: AnyObject {
+public class Mealplan {
     var days = [Day]()
     let isCached : Bool
     
     /// Holds list of menus for the day
-    public class Day: AnyObject {
+    public class Day {
         var menus = [Menu]()
-        var date : NSDate!
+        var date : Date!
         /// Should contain a message if the day has no menus e.g. the mensa is closed
 //        var note : String? = nil
     }
     /// Menu with price, title, category
-    public class Menu: AnyObject {
+    public class Menu {
         var category, title : String?
         var price : Double = 0
         var isExtra = false
     }
     
-    public static func cachedMensaPath(mensa :Mensa) -> (Bool, String) {
-        let caches = NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true)[0] 
-        let path = (caches as NSString).stringByAppendingPathComponent(mensa.name)
-        let fmgr = NSFileManager.defaultManager()
-        if fmgr.fileExistsAtPath(path) {
-            do {
-                let attr:NSDictionary = try fmgr.attributesOfItemAtPath(path)
-                let date = attr.fileModificationDate()
-                let cutoff = NSDate(timeIntervalSinceNow: -5*24*60*60)// 5 days
-                let usable = date != nil ? cutoff.compare(date!) == .OrderedAscending : false
-                return (usable, path)
-            } catch let error as NSError {
-                print("error reading file: \(error.localizedDescription)")
-            }
-        }
-        return (false, path)
+  public static func cachedMensaPath(mensa :Mensa) -> (Bool, String) {
+    let caches = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
+    let path = (caches as NSString).appendingPathComponent(mensa.name)
+    let fmgr = FileManager.default
+    if fmgr.fileExists(atPath: path) {
+      do {
+        let attr:[FileAttributeKey:Any] = try fmgr.attributesOfItem(atPath: path)
+        let date = attr[FileAttributeKey.modificationDate] as? NSDate
+        let cutoff = Date(timeIntervalSinceNow: -5*24*60*60)// 5 days
+        let usable = date != nil ? cutoff.compare(date! as Date) == .orderedAscending : false
+        return (usable, path)
+      } catch let error as NSError {
+        print("error reading file: \(error.localizedDescription)")
+      }
     }
+    return (false, path)
+  }
     
-    static func LoadMealplan(mensa :Mensa, completionHandler: (Mealplan?, NSError?) -> Void) {
+  static func LoadMealplan(mensa :Mensa, completionHandler: @escaping (Mealplan?, Error?) -> Void) {
         
-        let (usable, path) = cachedMensaPath(mensa)
+      let (usable, path) = cachedMensaPath(mensa: mensa)
         if usable {
-            if let data = NSData(contentsOfFile: path) {
-                let mensaplan = Mealplan(data: data, isCached: true)
-                if mensaplan.days.count > 0 {// Only use this if it seems ok
-                    completionHandler(mensaplan, nil)// Assume this is the UI thread
-                    return// Exit
-                }
+          do {
+            let data = try Data(contentsOf: URL(fileURLWithPath:path))
+            let mensaplan = Mealplan(data: data, isCached: true)
+            if mensaplan.days.count > 0 {// Only use this if it seems ok
+                completionHandler(mensaplan, nil)// Assume this is the UI thread
+                return// Exit
             }
+          } catch {
+                print("Unexpected error: \(error).")
+          }
         }
         
         // Download new data with a session
-        let session = NSURLSession.sharedSession()
-        let url = NSURL(string: mensa.url)!
+      let session = URLSession.shared
+        let url = URL(string: mensa.url)!
         // Url is statically set
-        let task = session.dataTaskWithURL(url) { (data, response, error) -> Void in
+        let task = session.dataTask(with:url, completionHandler: { (data, response, error) -> Void in
             var mealplan : Mealplan?
             if error == nil && data != nil {
                 
                 // Parse in background and then send it to the UI
                 mealplan = Mealplan(data: data!)
                 if mealplan!.days.count > 0 {
-                    data!.writeToFile(path, atomically: false)
+                  do {
+                    try data?.write(to: URL(fileURLWithPath: path))
+                  } catch {
+                    print("Unexpected error: \(error).")
+                  }
                 }
             }
-            
-            // Important UI might break otherwise
-            dispatch_async(dispatch_get_main_queue(), {
-                if error != nil {
-                    print("\(error!.localizedDescription)")
-                }
-                completionHandler(mealplan, error)
-            })
-        }
+          
+          // Important UI might break otherwise
+          DispatchQueue.main.async(execute:{
+            if error != nil {
+              print("\(error!.localizedDescription)")
+            }
+            completionHandler(mealplan, error)
+          })
+        })
         task.resume()// boom!
     }
     
-    init(data:NSData, isCached:Bool = false) {
+    init(data:Data, isCached:Bool = false) {
         self.isCached = isCached
         
         var err : NSError?
         let parser: GDataXMLDocument!
         do {
-            parser = try GDataXMLDocument(HTMLData: data)
+          parser = try GDataXMLDocument(htmlData: data)
         } catch let error as NSError {
             err = error
             parser = nil
         }
         if err != nil {return}
         
-        let weekdays = ["montag", "dienstag", "mittwoch", "donnerstag", "freitag"]
+        let weekdays = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"]
         for weekday in weekdays {
-            if let day = parseDay(parser, weekday:weekday) {
+          if let day = parseDay(parser: parser, weekday:weekday) {
                 days.append(day)
             }
         }
         let nextSuffix = "Naechste"// The HTML uses this API
         for i in 0..<weekdays.count {
-            if let day = parseDay(parser, weekday:weekdays[i]+nextSuffix) {
+          if let day = parseDay(parser: parser, weekday:weekdays[i]+nextSuffix) {
                 days.append(day)
             }
         }
         
-        days.sortInPlace({$0.date.compare($1.date) == .OrderedAscending})
+      days.sort(by: {$0.date.compare($1.date) == .orderedAscending})
     }
     
     // Static for speed
-    private static let trimChars = NSCharacterSet(charactersInString: "\n\r\t ,")
-    static var formatter : NSDateFormatter! = nil
+    private static let trimChars = CharacterSet(charactersIn: "\n\r\t ,")
+  static var formatter : DateFormatter! = nil
     private func parseDay(parser: GDataXMLDocument, weekday : String) -> Day? {
         if Mealplan.formatter == nil {
-            Mealplan.formatter = NSDateFormatter()
+            Mealplan.formatter = DateFormatter()
             Mealplan.formatter.dateFormat = "dd'.'MM'.'yyyy"
         }
         
         let dayElem : GDataXMLElement?
         do {
-            dayElem = try parser.firstNodeForXPath("//div[@id=\"\(weekday)\"]") as? GDataXMLElement
+          dayElem = try parser.firstNode(forXPath: "//div[@id=\"\(weekday)\"]") as? GDataXMLElement
         } catch {
             return nil
         }
         
         let nameNode: GDataXMLNode?
         do {
-            nameNode = try parser.firstNodeForXPath("//a[@data-anchor=\"#\(weekday)\"]")
+          nameNode = try parser.firstNode(forXPath: "//a[@data-anchor=\"#\(weekday.lowercased())\"]")
         } catch {
             return nil
         }
         
         let day = Day()// the resulting  day object
         if let val = nameNode?.stringValue() {
-            if let v = val.rangeOfString(", ") {
-                let trimmed = val.substringFromIndex(v.startIndex)
-                    .stringByTrimmingCharactersInSet(Mealplan.trimChars)
-                day.date = Mealplan.formatter.dateFromString(trimmed)
+            if let v = val.range(of: ", ") {
+                let trimmed = val[v.lowerBound...]// .substringFromIndex(v.startIndex)
+                    .trimmingCharacters(in: Mealplan.trimChars)
+              day.date = Mealplan.formatter.date(from: trimmed)
             }
         }
         if day.date == nil {
             return nil
         }
         
-        if let tables = dayElem?.elementsForName("table") {
+      if let tables = dayElem?.elements(forName: "table") {
             for table in tables {
-                day.menus += parseMenuTable(table as! GDataXMLElement)
+              day.menus += parseMenuTable(table: table)
             }
         }
 //        else {
@@ -170,33 +177,33 @@ public class Mealplan: AnyObject {
     }
     
     private func parseMenuTable(table : GDataXMLElement) -> [Menu] {
-        let tbody = table.elementsForName("tbody")
-        if tbody == nil || tbody.count == 0 {return []}
-        let trs = tbody[0].elementsForName("tr")
-        if trs == nil || trs.count == 0 {return []}
+      let tbody = table.elements(forName: "tbody")
+      if tbody == nil || tbody!.count == 0 {return []}
+      let trs = tbody![0].elements(forName: "tr")
+      if trs == nil || trs!.count == 0 {return []}
         
         var menus = [Menu]()
-        for nTr in trs {
+        for nTr in trs! {
             let tr = nTr as? GDataXMLElement
             if let tds = tr?.children() {
-                for td in tds where td.kind() == .XMLElementKind && td.localName() == "td" {
+                for td in tds where td.kind() == .xmlElementKind && td.localName() == "td" {
                     let items = (td as? GDataXMLElement)?.children()
                     if items == nil {continue}
 
                     // Parse menu entries
                     let menu = Menu()
-                    for node in items! where node.kind() == .XMLElementKind {
+                    for node in items! where node.kind() == .xmlElementKind {
                         let el = node as! GDataXMLElement
-                        if let type = el.attributeForName("class")?.stringValue() {
-                            if type.containsString("menue-category") {
-                                menu.category = self.textFromElement(el)
-                            } else if type.containsString("menue-desc") {
-                                menu.title = self.textFromElement(el)
-                            } else if type.containsString("menue-price") {
+                      if let type = el.attribute(forName: "class")?.stringValue() {
+                            if type.contains("menue-category") {
+                              menu.category = self.textFromElement(el: el)
+                            } else if type.contains("menue-desc") {
+                              menu.title = self.textFromElement(el: el)
+                            } else if type.contains("menue-price") {
                                 var contents = el.stringValue()
-                                contents = contents?.stringByReplacingOccurrencesOfString("€", withString: "")
-                                contents = contents?.stringByReplacingOccurrencesOfString(",", withString: ".")
-                                contents = contents?.stringByTrimmingCharactersInSet(Mealplan.trimChars)
+                                contents = contents?.replacingOccurrences(of: "€", with: "")
+                                contents = contents?.replacingOccurrences(of: ",", with: ".")
+                                contents = contents?.trimmingCharacters(in: Mealplan.trimChars)
                                 if let s = contents as NSString? {
                                     menu.price = s.doubleValue
                                 }
@@ -214,7 +221,7 @@ public class Mealplan: AnyObject {
     private func textFromElement(el : GDataXMLElement) -> String? {
         var buffer : String = ""
         for node in el.children() {
-            if node.kind() == .XMLTextKind {
+            if node.kind() == .xmlTextKind {
                 buffer += node.stringValue() + " "
             }/* else if node.kind() == .XMLElementKind {
                 var text = node.stringValue()
@@ -222,9 +229,9 @@ public class Mealplan: AnyObject {
             }*/
         }
         // remove unnecessary blanks and weird formatting leftovers
-        buffer = buffer.stringByReplacingOccurrencesOfString("  ", withString: "")
-        buffer = buffer.stringByReplacingOccurrencesOfString(" , ", withString: ", ")
-        return buffer.stringByTrimmingCharactersInSet(Mealplan.trimChars)
+        buffer = buffer.replacingOccurrences(of: "  ", with: "")
+        buffer = buffer.replacingOccurrences(of: " , ", with: ", ")
+        return buffer.trimmingCharacters(in: Mealplan.trimChars)
     }
     
     /** 
@@ -236,23 +243,23 @@ public class Mealplan: AnyObject {
     */
     public func dayForIndex(weekday : Int) -> Day? {
         if weekday < 5 && Globals.isWeekend() {
-            return dayForIndex(weekday + 7) // Skip to next week
+          return dayForIndex(weekday: weekday + 7) // Skip to next week
         }
         
         // Try to produce a date object with time 0:00
-        let cal = NSCalendar.currentCalendar()
-        let flags : NSCalendarUnit = [.Year, .Month, .Day]
-        let todayComps = cal.components(flags, fromDate: NSDate())
-        
+      let cal = Calendar.current
+      let flags : Set<Calendar.Component> = [.year, .month, .day]
+      let todayComps = cal.dateComponents(flags, from: Date())
+      
         // Get a date object for today without time
-        if let todayDate = cal.dateFromComponents(todayComps) {
+        if let todayDate = cal.date(from: todayComps) {
             // Difference in days
-            let diff = NSTimeInterval(weekday - Globals.currentWeekday())
-            let weekdayDate = NSDate(timeInterval: diff * 24 * 60 * 60, sinceDate: todayDate)
+            let diff = TimeInterval(weekday - Globals.currentWeekday())
+          let weekdayDate = Date(timeInterval: diff * 24 * 60 * 60, since: todayDate)
 
             // Select best day
             for day in self.days {
-                if cal.isDate(day.date, inSameDayAsDate: weekdayDate) {
+                if cal.isDate(day.date, inSameDayAs: weekdayDate) {
                     return day
                 }
             }

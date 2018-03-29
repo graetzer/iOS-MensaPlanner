@@ -20,17 +20,17 @@ class MensaSelectionController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Globals.mensas.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MensaCell", forIndexPath: indexPath) as! MensaCell
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "MensaCell", for: indexPath) as! MensaCell
         let mensa = Globals.mensas[indexPath.row]
         cell.nameLabel.text = mensa.name
         
-        let off = disabledMensaNames != nil && disabledMensaNames!.containsObject(mensa.name)
-        cell.enableSwitch.on = !off
+    let off = disabledMensaNames != nil && disabledMensaNames!.contains(mensa.name)
+    cell.enableSwitch.isOn = !off
         cell.enableSwitch.tag = tagOffset + indexPath.row
         
         return cell
@@ -38,17 +38,17 @@ class MensaSelectionController: UITableViewController {
     
     @IBAction func dismissSelection(sender: AnyObject) {
         if disabledMensaNames != nil {
-            Globals.setDisabledMensas(disabledMensaNames!)
+          Globals.setDisabledMensas(names: disabledMensaNames!)
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+      self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func changedEnableValue(sender: UISwitch) {
         let mensa = Globals.mensas[sender.tag - tagOffset]
-        if sender.on {
-            disabledMensaNames?.removeObject(mensa.name)
+      if sender.isOn {
+        disabledMensaNames?.remove(mensa.name)
         } else {
-            disabledMensaNames?.addObject(mensa.name)
+        disabledMensaNames?.add(mensa.name)
         }
     }
 }

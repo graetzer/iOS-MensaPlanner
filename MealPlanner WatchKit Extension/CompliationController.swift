@@ -11,128 +11,126 @@ import ClockKit
 
 @objc
 class CompliationController: NSObject, CLKComplicationDataSource {
-    private let dateFormatter = NSDateFormatter()
+    private let dateFormatter = DateFormatter()
     
     override init() {
         dateFormatter.dateFormat = "ccc"
     }
-    
-    func getSupportedTimeTravelDirectionsForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationTimeTravelDirections) -> Void) {
-        handler([.Backward, .Forward])
+  
+  func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
+    handler([.backward, .forward])
+  }
+  
+  func getTimelineStartDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
+    let mensa = Globals.selectedMensa
+    Mealplan.LoadMealplan(mensa: mensa) {(mealplan, error) in
+      if mealplan != nil {
+        handler(mealplan!.days.first?.date)
+      } else {
+        handler(Date())
+      }
     }
-    
-    func getTimelineStartDateForComplication(complication: CLKComplication, withHandler handler: (NSDate?) -> Void) {
-        let mensa = Globals.selectedMensa
-        Mealplan.LoadMealplan(mensa) {(mealplan, error) in
-            if mealplan != nil {
-                handler(mealplan!.days.first?.date)
-            } else {
-                handler(NSDate())
-            }
+  }
+  
+  func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
+    let mensa = Globals.selectedMensa
+    Mealplan.LoadMealplan(mensa: mensa) {(mealplan, error) in
+      if mealplan != nil {
+        handler(mealplan!.days.last?.date)
+      } else {
+        handler(Date())
+      }
+    }
+  }
+
+  func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
+    handler(.showOnLockScreen)
+  }
+  
+  func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
+    // Get the complication data
+    let mensa = Globals.selectedMensa
+    Mealplan.LoadMealplan(mensa: mensa) {(mealplan, error) in
+      
+      let weekday = Globals.currentWorkdayIndex()
+      if let day = mealplan?.dayForIndex(weekday: weekday) {
+        if let template = self.createTemplate(complication: complication, mensa: mensa, day: day) {
+          let entry = CLKComplicationTimelineEntry(date: day.date, complicationTemplate: template)
+          handler(entry) // Pass the timeline entry back to ClockKit.
+        } else {
+          handler(nil)
         }
+      }
     }
-    
-    func getTimelineEndDateForComplication(complication: CLKComplication, withHandler handler: (NSDate?) -> Void) {
-        let mensa = Globals.selectedMensa
-        Mealplan.LoadMealplan(mensa) {(mealplan, error) in
-            if mealplan != nil {
-                handler(mealplan!.days.last?.date)
-            } else {
-                handler(NSDate())
+  }
+  
+  func getTimelineEntries(for complication: CLKComplication, before date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
+    let mensa = Globals.selectedMensa
+    Mealplan.LoadMealplan(mensa: mensa) {(mealplan, error) in
+      var entries = [CLKComplicationTimelineEntry]()
+      if let plan = mealplan {
+        for day in plan.days {
+          if date.compare(day.date) == .orderedDescending {
+            if let template = self.createTemplate(complication: complication, mensa: mensa, day: day) {
+              let entry = CLKComplicationTimelineEntry(date: day.date, complicationTemplate: template)
+              entries.append(entry)
             }
+          }
         }
+      }
+      handler(entries)
     }
-    
-    func getPrivacyBehaviorForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationPrivacyBehavior) -> Void) {
-        handler(.ShowOnLockScreen)
-    }
-    
-    func getCurrentTimelineEntryForComplication(complication: CLKComplication,
-        withHandler handler: ((CLKComplicationTimelineEntry?) -> Void)) {
-        // Get the complication data
-        let mensa = Globals.selectedMensa
-        Mealplan.LoadMealplan(mensa) {(mealplan, error) in
-            
-            let weekday = Globals.currentWorkdayIndex()
-            if let day = mealplan?.dayForIndex(weekday) {
-                if let template = self.createTemplate(complication, mensa: mensa, day: day) {
-                    let entry = CLKComplicationTimelineEntry(date: day.date, complicationTemplate: template)
-                    handler(entry) // Pass the timeline entry back to ClockKit.
-                } else {
-                    handler(nil)
-                }
+  }
+  
+  func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
+    let mensa = Globals.selectedMensa
+    Mealplan.LoadMealplan(mensa: mensa) {(mealplan, error) in
+      var entries = [CLKComplicationTimelineEntry]()
+      if let plan = mealplan {
+        for day in plan.days {
+          if date.compare(day.date) == .orderedAscending {
+            if let template = self.createTemplate(complication: complication, mensa: mensa, day: day) {
+              let entry = CLKComplicationTimelineEntry(date: day.date, complicationTemplate: template)
+              entries.append(entry)
             }
+          }
         }
+      }
+      handler(entries)
     }
-    
-    func getTimelineEntriesForComplication(complication: CLKComplication, beforeDate date: NSDate, limit: Int, withHandler handler: ([CLKComplicationTimelineEntry]?) -> Void)
-    {
-        let mensa = Globals.selectedMensa
-        Mealplan.LoadMealplan(mensa) {(mealplan, error) in
-            var entries = [CLKComplicationTimelineEntry]()
-            if let plan = mealplan {
-                for day in plan.days {
-                    if date.compare(day.date) == .OrderedDescending {
-                        if let template = self.createTemplate(complication, mensa: mensa, day: day) {
-                            let entry = CLKComplicationTimelineEntry(date: day.date, complicationTemplate: template)
-                            entries.append(entry)
-                        }
-                    }
-                }
-            }
-            handler(entries)
-        }
+  }
+  
+  func getPlaceholderTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
+    let mensa = Globals.selectedMensa
+    Mealplan.LoadMealplan(mensa: mensa) {(mealplan, error) in
+      let weekday = Globals.currentWorkdayIndex()
+      var day = mealplan?.dayForIndex(weekday: weekday)
+      if day == nil {
+        day = Mealplan.Day()
+        let menu = Mealplan.Menu()
+        menu.title = NSLocalizedString("Meal of the Day", comment: "Menu placeholder")
+        day!.menus.append(menu)
+        //                day!.note = NSLocalizedString("Meal of the Day", comment: "Menu placeholder")
+      }
+      let template = self.createTemplate(complication: complication, mensa: mensa, day: day!)
+      handler(template)
     }
-    
-    func getTimelineEntriesForComplication(complication: CLKComplication, afterDate date: NSDate, limit: Int, withHandler handler: ([CLKComplicationTimelineEntry]?) -> Void) {
-        let mensa = Globals.selectedMensa
-        Mealplan.LoadMealplan(mensa) {(mealplan, error) in
-            var entries = [CLKComplicationTimelineEntry]()
-            if let plan = mealplan {
-                for day in plan.days {
-                    if date.compare(day.date) == .OrderedAscending {
-                        if let template = self.createTemplate(complication, mensa: mensa, day: day) {
-                            let entry = CLKComplicationTimelineEntry(date: day.date, complicationTemplate: template)
-                            entries.append(entry)
-                        }
-                    }
-                }
-            }
-            handler(entries)
-        }
-    }
-    
-    func getPlaceholderTemplateForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationTemplate?) -> Void) {
-        let mensa = Globals.selectedMensa
-        Mealplan.LoadMealplan(mensa) {(mealplan, error) in
-            let weekday = Globals.currentWorkdayIndex()
-            var day = mealplan?.dayForIndex(weekday)
-            if day == nil {
-                day = Mealplan.Day()
-                let menu = Mealplan.Menu()
-                menu.title = NSLocalizedString("Meal of the Day", comment: "Menu placeholder")
-                day!.menus.append(menu)
-//                day!.note = NSLocalizedString("Meal of the Day", comment: "Menu placeholder")
-            }
-            let template = self.createTemplate(complication, mensa: mensa, day: day!)
-            handler(template)
-        }
-    }
-    
-    func getNextRequestedUpdateDateWithHandler(handler: (NSDate?) -> Void) {
-        // Update every week
-        handler(NSDate(timeIntervalSinceNow: 60.0 * 60.0 * 24.0 * 7.0 / 2.0))
-    }
+  }
+  
+  func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void) {
+    // Update every week
+    handler(Date(timeIntervalSinceNow: 60.0 * 60.0 * 24.0 * 7.0 / 2.0))
+  }
     
     func requestedUpdateDidBegin() {
         let mensa = Globals.selectedMensa
-        Mealplan.LoadMealplan(mensa) {(mealplan, error) in
+        Mealplan.LoadMealplan(mensa: mensa) {(mealplan, error) in
             // Upload as soon as the cache is gone
             if mealplan != nil {
                 let complicationServer = CLKComplicationServer.sharedInstance()
                 if let complications = complicationServer.activeComplications {
                     for complication in complications {
-                        complicationServer.reloadTimelineForComplication(complication)
+                      complicationServer.reloadTimeline(for: complication)
                     }
                 }
             }
@@ -140,7 +138,7 @@ class CompliationController: NSObject, CLKComplicationDataSource {
     }
     
     private func createTemplate(complication : CLKComplication, mensa : Mensa, day : Mealplan.Day) -> CLKComplicationTemplate? {
-        var long : String = ""
+        var longtext : String = ""
 //        if let note = day.note {
 //            long = note
 //        } else {
@@ -155,42 +153,43 @@ class CompliationController: NSObject, CLKComplicationDataSource {
                 }
             }
             if let title = sel?.title {
-                long = title
+                longtext = title
             }
 //        }
-        
+      
+      
         // Some ugly shortening of the desciptions
-        let components = long.componentsSeparatedByString(" ")
-        var short = components.first
-        if components.count >= 2 {
-            if components.count >= 3
-                && components[2].characters.count > components[1].characters.count {
-                long = "\(components[0]) \(components[2])"// skip vom "XXX vom YYY"
-            } else {
-                long = "\(components[0]) \(components[1])"
-            }
-            if components[1].characters.count > components[0].characters.count {
-                short = components[1]
-            }
+      let components = longtext.split(separator: " ")
+      var short = components.first
+      if components.count >= 2 {
+        if components.count >= 3
+          && components[2].count > components[1].count {
+          longtext = "\(components[0]) \(components[2])"// skip vom "XXX vom YYY"
+        } else {
+          longtext = "\(components[0]) \(components[1])"
         }
+        if components[1].count > components[0].count {
+          short = components[1]
+        }
+      }
         
-        let wd = dateFormatter.stringFromDate(day.date)
+        /*let wd = dateFormatter.string(from: day.date)
         // Create the template, depending on the format with the weekday
-        if complication.family == .ModularLarge {
-            let name = mensa.name.stringByReplacingOccurrencesOfString("Mensa ", withString: "")
+        if complication.family == .modularLarge {
+            let name = mensa.name.replacingOccurrences(of: "Mensa ", with: "")
             let textTemplate = CLKComplicationTemplateModularLargeStandardBody()
             textTemplate.headerTextProvider = CLKSimpleTextProvider(text: name)
-            textTemplate.body1TextProvider = CLKSimpleTextProvider(text: "\(wd): \(long)", shortText: short)
+          textTemplate.body1TextProvider = CLKSimpleTextProvider(text: "\(wd): \(longtext)", shortText: String(short))
             return textTemplate
-        } else if complication.family == .UtilitarianSmall {
+        } else if complication.family == .utilitarianSmall {
             let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
-            textTemplate.textProvider = CLKSimpleTextProvider(text: long, shortText: short)
+            textTemplate.textProvider = CLKSimpleTextProvider(text: longtext, shortText: String(short))
             return textTemplate
-        } else if complication.family == .UtilitarianLarge {
+        } else if complication.family == .utilitarianLarge {
             let textTemplate = CLKComplicationTemplateUtilitarianLargeFlat()
-            textTemplate.textProvider = CLKSimpleTextProvider(text: "\(wd): \(long)", shortText: short)
+            textTemplate.textProvider = CLKSimpleTextProvider(text: "\(wd): \(longtext)", shortText: String(short))
             return textTemplate
-        }
+        }*/
         return nil
     }
 }
