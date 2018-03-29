@@ -11,11 +11,11 @@ import ClockKit
 
 @objc
 class CompliationController: NSObject, CLKComplicationDataSource {
-    private let dateFormatter = DateFormatter()
-    
-    override init() {
-        dateFormatter.dateFormat = "ccc"
-    }
+  private let dateFormatter = DateFormatter()
+  
+  override init() {
+    dateFormatter.dateFormat = "ccc"
+  }
   
   func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
     handler([.backward, .forward])
@@ -42,7 +42,7 @@ class CompliationController: NSObject, CLKComplicationDataSource {
       }
     }
   }
-
+  
   func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
     handler(.showOnLockScreen)
   }
@@ -121,75 +121,76 @@ class CompliationController: NSObject, CLKComplicationDataSource {
     // Update every week
     handler(Date(timeIntervalSinceNow: 60.0 * 60.0 * 24.0 * 7.0 / 2.0))
   }
-    
-    func requestedUpdateDidBegin() {
-        let mensa = Globals.selectedMensa
-        Mealplan.LoadMealplan(mensa: mensa) {(mealplan, error) in
-            // Upload as soon as the cache is gone
-            if mealplan != nil {
-                let complicationServer = CLKComplicationServer.sharedInstance()
-                if let complications = complicationServer.activeComplications {
-                    for complication in complications {
-                      complicationServer.reloadTimeline(for: complication)
-                    }
-                }
-            }
-        }
-    }
-    
-    private func createTemplate(complication : CLKComplication, mensa : Mensa, day : Mealplan.Day) -> CLKComplicationTemplate? {
-        var longtext : String = ""
-//        if let note = day.note {
-//            long = note
-//        } else {
-            // Try to find todays recommendated menu
-            // TODO: Let the user choose what kind of menu he would like to see
-            var sel : Mealplan.Menu? = day.menus.last
-            for menu in day.menus {
-                if menu.price == 2.60 {
-                    sel = menu
-
-                    break
-                }
-            }
-            if let title = sel?.title {
-                longtext = title
-            }
-//        }
-      
-      
-        // Some ugly shortening of the desciptions
-      let components = longtext.split(separator: " ")
-      var short = components.first
-      if components.count >= 2 {
-        if components.count >= 3
-          && components[2].count > components[1].count {
-          longtext = "\(components[0]) \(components[2])"// skip vom "XXX vom YYY"
-        } else {
-          longtext = "\(components[0]) \(components[1])"
-        }
-        if components[1].count > components[0].count {
-          short = components[1]
+  
+  func requestedUpdateDidBegin() {
+    let mensa = Globals.selectedMensa
+    Mealplan.LoadMealplan(mensa: mensa) {(mealplan, error) in
+      // Upload as soon as the cache is gone
+      if mealplan != nil {
+        let complicationServer = CLKComplicationServer.sharedInstance()
+        if let complications = complicationServer.activeComplications {
+          for complication in complications {
+            complicationServer.reloadTimeline(for: complication)
+          }
         }
       }
-        
-        /*let wd = dateFormatter.string(from: day.date)
-        // Create the template, depending on the format with the weekday
-        if complication.family == .modularLarge {
-            let name = mensa.name.replacingOccurrences(of: "Mensa ", with: "")
-            let textTemplate = CLKComplicationTemplateModularLargeStandardBody()
-            textTemplate.headerTextProvider = CLKSimpleTextProvider(text: name)
-          textTemplate.body1TextProvider = CLKSimpleTextProvider(text: "\(wd): \(longtext)", shortText: String(short))
-            return textTemplate
-        } else if complication.family == .utilitarianSmall {
-            let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
-            textTemplate.textProvider = CLKSimpleTextProvider(text: longtext, shortText: String(short))
-            return textTemplate
-        } else if complication.family == .utilitarianLarge {
-            let textTemplate = CLKComplicationTemplateUtilitarianLargeFlat()
-            textTemplate.textProvider = CLKSimpleTextProvider(text: "\(wd): \(longtext)", shortText: String(short))
-            return textTemplate
-        }*/
-        return nil
     }
+  }
+  
+  private func createTemplate(complication : CLKComplication, mensa : Mensa, day : Mealplan.Day) -> CLKComplicationTemplate? {
+    var longtext : String = ""
+    //        if let note = day.note {
+    //            long = note
+    //        } else {
+    // Try to find todays recommendated menu
+    // TODO: Let the user choose what kind of menu he would like to see
+    var sel : Mealplan.Menu? = day.menus.last
+    for menu in day.menus {
+      if menu.price == 2.60 {
+        sel = menu
+        
+        break
+      }
+    }
+    if let title = sel?.title {
+      longtext = title
+    }
+    //        }
+    
+    
+    // Some ugly shortening of the desciptions
+    let components = longtext.split(separator: " ")
+    var short = components.first
+    if components.count >= 2 {
+      if components.count >= 3
+        && components[2].count > components[1].count {
+        longtext = "\(components[0]) \(components[2])"// skip vom "XXX vom YYY"
+      } else {
+        longtext = "\(components[0]) \(components[1])"
+      }
+      if components[1].count > components[0].count {
+        short = components[1]
+      }
+    }
+    
+    let shortTxt = String(describing: short)
+    let wd = dateFormatter.string(from: day.date)
+    // Create the template, depending on the format with the weekday
+    if complication.family == .modularLarge {
+      let name = mensa.name.replacingOccurrences(of: "Mensa ", with: "")
+      let textTemplate = CLKComplicationTemplateModularLargeStandardBody()
+      textTemplate.headerTextProvider = CLKSimpleTextProvider(text: name)
+      textTemplate.body1TextProvider = CLKSimpleTextProvider(text: "\(wd): \(longtext)", shortText: shortTxt)
+      return textTemplate
+    } else if complication.family == .utilitarianSmall {
+      let textTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
+      textTemplate.textProvider = CLKSimpleTextProvider(text: longtext, shortText: shortTxt)
+      return textTemplate
+    } else if complication.family == .utilitarianLarge {
+      let textTemplate = CLKComplicationTemplateUtilitarianLargeFlat()
+      textTemplate.textProvider = CLKSimpleTextProvider(text: "\(wd): \(longtext)", shortText: shortTxt)
+      return textTemplate
+    }
+    return nil
+  }
 }

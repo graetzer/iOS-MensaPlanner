@@ -10,8 +10,8 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
+  
+  var window: UIWindow?
   
   public func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
     // Override point for customization after application launch.
@@ -24,14 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     return true
   }
-
+  
   func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        return true
-    }
-
+    return true
+  }
+  
   func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        return true
-    }
+    return true
+  }
   
   func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     let mensas = Globals.enabledMensas()
@@ -70,6 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
     }
   }
-    
+  
 }
 

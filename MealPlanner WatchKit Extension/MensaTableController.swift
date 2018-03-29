@@ -11,7 +11,7 @@ import Foundation
 
 
 class MensaTableController: WKInterfaceController {
-    @IBOutlet weak var table: WKInterfaceTable!
+  @IBOutlet weak var table: WKInterfaceTable!
   
   // context from controller that did push or modal presentation. default does nothing
   override func awake(withContext context: Any?) {
@@ -42,5 +42,5 @@ class MensaTableController: WKInterfaceController {
 
 
 class MensaRowType: NSObject {
-    @IBOutlet weak var mensaTitle: WKInterfaceLabel!
+  @IBOutlet weak var mensaTitle: WKInterfaceLabel!
 }

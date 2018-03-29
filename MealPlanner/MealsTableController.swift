@@ -10,40 +10,40 @@ import UIKit
 
 /// Displays the meals for a day
 class MealsTableController: UITableViewController {
-    var day : Mealplan.Day? = nil {
-        didSet {
-            self.tableView.backgroundView = nil
-            
-            updateLoadingIndicator()
-          if self.isViewLoaded {
-                self.tableView.reloadData()
-            }
-        }
+  var day : Mealplan.Day? = nil {
+    didSet {
+      self.tableView.backgroundView = nil
+      
+      updateLoadingIndicator()
+      if self.isViewLoaded {
+        self.tableView.reloadData()
+      }
     }
-    
-    /// Currency formatter
+  }
+  
+  /// Currency formatter
   private let numberFormatter = NumberFormatter()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    numberFormatter.numberStyle = .currency
+    numberFormatter.locale = Locale(identifier: "de_DE")
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        numberFormatter.numberStyle = .currency
-        numberFormatter.locale = Locale(identifier: "de_DE")
-        
-        self.tableView.allowsSelection = false;
-      self.tableView.separatorStyle = .none
-        updateLoadingIndicator()
-    }
-
-    // MARK: UITableViewDelegate
-    
+    self.tableView.allowsSelection = false;
+    self.tableView.separatorStyle = .none
+    updateLoadingIndicator()
+  }
+  
+  // MARK: UITableViewDelegate
+  
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let menus = day?.menus {
-            return menus.count
-        }
-        return 0
+    if let menus = day?.menus {
+      return menus.count
     }
-    
-    let MenuCell = "MenuCell"
+    return 0
+  }
+  
+  let MenuCell = "MenuCell"
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell, for: indexPath) as! MenuTableViewCell
     if let menu = day?.menus[indexPath.row] {
@@ -80,32 +80,32 @@ class MealsTableController: UITableViewController {
     }
     return nil
   }
-    
-    
-    func updateLoadingIndicator() {
-        if self.day == nil {
-          let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-            self.tableView.backgroundView = indicator
-            indicator.startAnimating()
-        } else {
-            self.tableView.backgroundView = nil
-        }
+  
+  
+  func updateLoadingIndicator() {
+    if self.day == nil {
+      let indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+      self.tableView.backgroundView = indicator
+      indicator.startAnimating()
+    } else {
+      self.tableView.backgroundView = nil
     }
-    
-    func showNoDataFound() {
-        let label = UILabel(frame: CGRect.zero)
-//        if let note = self.day?.note {
-//            label.text = note
-//        } else {
-            label.text = NSLocalizedString("No Data Found", comment: "empty mealplan message")
-//        }
-        label.textAlignment = .center
-        self.tableView.backgroundView = label
-    }
+  }
+  
+  func showNoDataFound() {
+    let label = UILabel(frame: CGRect.zero)
+    //        if let note = self.day?.note {
+    //            label.text = note
+    //        } else {
+    label.text = NSLocalizedString("No Data Found", comment: "empty mealplan message")
+    //        }
+    label.textAlignment = .center
+    self.tableView.backgroundView = label
+  }
 }
 
 class MenuTableViewCell: UITableViewCell {
-    @IBOutlet weak var menuLabel: UILabel!
-    @IBOutlet weak var categoryLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
+  @IBOutlet weak var menuLabel: UILabel!
+  @IBOutlet weak var categoryLabel: UILabel!
+  @IBOutlet weak var priceLabel: UILabel!
 }

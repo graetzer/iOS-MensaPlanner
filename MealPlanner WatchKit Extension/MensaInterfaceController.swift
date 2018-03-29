@@ -11,7 +11,7 @@ import Foundation
 
 
 class MensaInterfaceController: WKInterfaceController {
-    @IBOutlet weak var table: WKInterfaceTable!
+  @IBOutlet weak var table: WKInterfaceTable!
   
   override func awake(withContext context: Any?) {
     super.awake(withContext: context)
@@ -44,7 +44,7 @@ class MensaInterfaceController: WKInterfaceController {
 }
 
 class MenusRowType: NSObject {
-    @IBOutlet weak var menuLabel: WKInterfaceLabel!
-    @IBOutlet weak var categoryLabel: WKInterfaceLabel!
-    @IBOutlet weak var priceLabel: WKInterfaceLabel!
+  @IBOutlet weak var menuLabel: WKInterfaceLabel!
+  @IBOutlet weak var categoryLabel: WKInterfaceLabel!
+  @IBOutlet weak var priceLabel: WKInterfaceLabel!
 }

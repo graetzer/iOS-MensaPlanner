@@ -9,16 +9,14 @@
 /* Begin PBXBuildFile section */
 		F44CEB4E1C8032F50076F3E9 /* MensaPlanner WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F496F6681B179C3800C3ADAC /* MensaPlanner WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F44CEB511C8032F50076F3E9 /* MensaPlanner WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F496F6741B179C3900C3ADAC /* MensaPlanner WatchKit App.app */; };
-		F44CEBA41C8046FD0076F3E9 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F44CEBA31C8046FD0076F3E9 /* libxml2.2.tbd */; };
 		F44CEBAD1C805C6A0076F3E9 /* CompliationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44CEBA91C805BEB0076F3E9 /* CompliationController.swift */; };
-		F468D10A1CA5A65200EBC57D /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F468D1091CA5A65100EBC57D /* WatchKit.framework */; };
-		F468D10C1CA5A65D00EBC57D /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F468D10B1CA5A65D00EBC57D /* ClockKit.framework */; };
-		F468D10E1CA5A66500EBC57D /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F468D10D1CA5A66500EBC57D /* libxml2.2.tbd */; };
 		F473CA321B206F5400BCA0CC /* SGTabbedPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F473CA311B206F5400BCA0CC /* SGTabbedPager.swift */; };
 		F473CA361B2119DD00BCA0CC /* MensaSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F473CA351B2119DD00BCA0CC /* MensaSelectionController.swift */; };
+		F47CDC88206D98E900667341 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F47CDC87206D98E900667341 /* ClockKit.framework */; };
+		F47CDC89206D9A7700667341 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F44CEBA31C8046FD0076F3E9 /* libxml2.2.tbd */; };
+		F47CDC8B206D9A8300667341 /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F47CDC8A206D9A8300667341 /* libxml2.2.tbd */; };
 		F496F65A1B178EC400C3ADAC /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F496F6591B178EC400C3ADAC /* GDataXMLNode.m */; };
 		F496F66D1B179C3900C3ADAC /* MensaTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496F66C1B179C3900C3ADAC /* MensaTableController.swift */; };
-		F496F66F1B179C3900C3ADAC /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F496F66E1B179C3900C3ADAC /* GlanceController.swift */; };
 		F496F6711B179C3900C3ADAC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F496F6701B179C3900C3ADAC /* Images.xcassets */; };
 		F496F67D1B179C3900C3ADAC /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F496F67B1B179C3900C3ADAC /* Interface.storyboard */; };
 		F496F67F1B179C3900C3ADAC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F496F67E1B179C3900C3ADAC /* Images.xcassets */; };
@@ -84,9 +82,6 @@
 		F408F9A81B374F0400ACE45E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		F44CEBA31C8046FD0076F3E9 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
 		F44CEBA91C805BEB0076F3E9 /* CompliationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompliationController.swift; sourceTree = "<group>"; };
-		F468D1091CA5A65100EBC57D /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.2.sdk/System/Library/Frameworks/WatchKit.framework; sourceTree = DEVELOPER_DIR; };
-		F468D10B1CA5A65D00EBC57D /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.2.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
-		F468D10D1CA5A66500EBC57D /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.2.sdk/usr/lib/libxml2.2.tbd; sourceTree = DEVELOPER_DIR; };
 		F473CA1D1B206F1000BCA0CC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F473CA1E1B206F1000BCA0CC /* SGAnnotatedPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAnnotatedPagerController.h; sourceTree = "<group>"; };
 		F473CA1F1B206F1000BCA0CC /* SGAnnotatedPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAnnotatedPagerController.m; sourceTree = "<group>"; };
@@ -94,12 +89,13 @@
 		F473CA211B206F1000BCA0CC /* SGViewPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGViewPagerController.m; sourceTree = "<group>"; };
 		F473CA311B206F5400BCA0CC /* SGTabbedPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SGTabbedPager.swift; sourceTree = "<group>"; };
 		F473CA351B2119DD00BCA0CC /* MensaSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MensaSelectionController.swift; sourceTree = "<group>"; };
+		F47CDC87206D98E900667341 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.2.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
+		F47CDC8A206D9A8300667341 /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS4.2.sdk/usr/lib/libxml2.2.tbd; sourceTree = DEVELOPER_DIR; };
 		F496F6581B178EC400C3ADAC /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		F496F6591B178EC400C3ADAC /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		F496F6681B179C3800C3ADAC /* MensaPlanner WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MensaPlanner WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F496F66B1B179C3900C3ADAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F496F66C1B179C3900C3ADAC /* MensaTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MensaTableController.swift; sourceTree = "<group>"; };
-		F496F66E1B179C3900C3ADAC /* GlanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
 		F496F6701B179C3900C3ADAC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F496F6741B179C3900C3ADAC /* MensaPlanner WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MensaPlanner WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F496F67A1B179C3900C3ADAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -126,9 +122,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F468D10E1CA5A66500EBC57D /* libxml2.2.tbd in Frameworks */,
-				F468D10C1CA5A65D00EBC57D /* ClockKit.framework in Frameworks */,
-				F468D10A1CA5A65200EBC57D /* WatchKit.framework in Frameworks */,
+				F47CDC8B206D9A8300667341 /* libxml2.2.tbd in Frameworks */,
+				F47CDC88206D98E900667341 /* ClockKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F44CEBA41C8046FD0076F3E9 /* libxml2.2.tbd in Frameworks */,
+				F47CDC89206D9A7700667341 /* libxml2.2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +151,15 @@
 			path = SGViewPager;
 			sourceTree = "<group>";
 		};
+		F47CDC86206D98E900667341 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F47CDC8A206D9A8300667341 /* libxml2.2.tbd */,
+				F47CDC87206D98E900667341 /* ClockKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F496F6571B178EC400C3ADAC /* GDataXML */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,7 +175,6 @@
 			children = (
 				F496F66C1B179C3900C3ADAC /* MensaTableController.swift */,
 				F496F68A1B179D1C00C3ADAC /* MensaInterfaceController.swift */,
-				F496F66E1B179C3900C3ADAC /* GlanceController.swift */,
 				F44CEBA91C805BEB0076F3E9 /* CompliationController.swift */,
 				F496F6701B179C3900C3ADAC /* Images.xcassets */,
 				F496F66A1B179C3900C3ADAC /* Supporting Files */,
@@ -208,15 +211,13 @@
 		F4D94D841B0692F50035EE6A = {
 			isa = PBXGroup;
 			children = (
-				F468D10D1CA5A66500EBC57D /* libxml2.2.tbd */,
 				F44CEBA31C8046FD0076F3E9 /* libxml2.2.tbd */,
-				F468D10B1CA5A65D00EBC57D /* ClockKit.framework */,
-				F468D1091CA5A65100EBC57D /* WatchKit.framework */,
 				F4D94DB21B0695720035EE6A /* External */,
 				F4D94D8F1B0692F50035EE6A /* MealPlanner */,
 				F496F6691B179C3900C3ADAC /* MealPlanner WatchKit Extension */,
 				F496F6781B179C3900C3ADAC /* MealPlanner WatchKit App */,
 				F4D94D8E1B0692F50035EE6A /* Products */,
+				F47CDC86206D98E900667341 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -330,12 +331,11 @@
 			attributes = {
 				LastSwiftMigration = 0720;
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Simon Grätzer";
 				TargetAttributes = {
 					F496F6671B179C3800C3ADAC = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = AQR4MQXUPM;
 					};
 					F496F6731B179C3900C3ADAC = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -407,7 +407,6 @@
 				F496F66D1B179C3900C3ADAC /* MensaTableController.swift in Sources */,
 				F496F68B1B179D1C00C3ADAC /* MensaInterfaceController.swift in Sources */,
 				F4A557C91B17D67A00956AF0 /* Mealplan.swift in Sources */,
-				F496F66F1B179C3900C3ADAC /* GlanceController.swift in Sources */,
 				F4A557CA1B17DC1500956AF0 /* GDataXMLNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,10 +483,10 @@
 		F496F6841B179C3900C3ADAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -499,16 +498,16 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
 		F496F6851B179C3900C3ADAC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = MealPlanner_WatchKit_Extension;
 				INFOPLIST_FILE = "MealPlanner WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = org.graetzer.MensaPlanner.watchkitapp;
@@ -516,7 +515,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
@@ -524,6 +523,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -536,13 +536,14 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MealPlanner/MealPlanner-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
 		F496F6881B179C3900C3ADAC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "MealPlanner WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.graetzer.MensaPlanner.watchkitapp.watchkitextension;
@@ -551,7 +552,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MealPlanner/MealPlanner-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
@@ -559,17 +560,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -610,17 +620,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -645,6 +664,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
